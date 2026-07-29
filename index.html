@@ -30,14 +30,22 @@
                 if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
             } catch (e) {}
         })();
-        function applyTheme(t) {
-            document.documentElement.setAttribute('data-theme', t);
-            var isLight = t === 'light';
+        /* 매개변수 이름은 t()(번역 함수)와 겹치지 않게 theme으로 둔다. */
+        function applyTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            syncThemeLabel();
+        }
+        /* 스위치의 aria 상태와 라벨을 현재 테마·언어에 맞춘다.
+           언어를 바꿀 때도 라벨을 다시 써야 하므로 i18n.js의 applyLang이 호출한다. */
+        function syncThemeLabel() {
+            var isLight = document.documentElement.getAttribute('data-theme') === 'light';
             document.querySelectorAll('.theme-switch').forEach(function (b) {
                 b.setAttribute('aria-checked', isLight ? 'true' : 'false');
             });
             document.querySelectorAll('[data-theme-label]').forEach(function (e) {
-                e.textContent = isLight ? '라이트' : '다크';
+                e.textContent = (typeof t === 'function')
+                    ? t(isLight ? 'themeLight' : 'themeDark')
+                    : (isLight ? '라이트' : '다크');
             });
         }
         function toggleTheme() {
@@ -50,6 +58,8 @@
             applyTheme(document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark');
         });
     </script>
+
+    <script src="i18n.js?v=20260802"></script>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -297,6 +307,30 @@
          * 밝은 섹션(bg-apple-light)은 원래 밝으므로 건드리지 않고,
          * 어두운 영역(nav · bg-apple-black)만 밝게 뒤집는다.
          * ========================================================= */
+        /* 여러 줄 문단의 줄 길이를 고르게 맞춘다. 가운데 정렬은 balance, 좌측 본문은 pretty. */
+        .sf-display-hero, .sf-display-section, .sf-display-card,
+        #question-text, #result-pathway-title { text-wrap: balance; }
+        #result-pathway-desc, #rec-major-desc, #pathway-guide-sub,
+        #region-note, #share-hint, #rec-major-note { text-wrap: balance; }
+        .sf-text-body, .sf-text-caption { text-wrap: pretty; }
+
+        /* 언어 전환 (한국어 / English) — 두 칸 세그먼트 컨트롤 */
+        .lang-switch {
+            display: inline-flex; border: 1px solid rgba(255, 255, 255, 0.28);
+            border-radius: 999px; overflow: hidden; flex-shrink: 0;
+        }
+        .lang-switch button {
+            border: 0; background: transparent; color: #a1a1a6;
+            font-size: 11.5px; font-weight: 700; letter-spacing: 0.02em;
+            padding: 5px 10px; cursor: pointer; transition: background 0.2s ease, color 0.2s ease;
+        }
+        .lang-switch button:hover { color: #f5f5f7; }
+        .lang-switch button.on { background: #f5f5f7; color: #0b0b0f; }
+        html[data-theme="light"] .lang-switch { border-color: rgba(0, 0, 0, 0.2); }
+        html[data-theme="light"] .lang-switch button { color: #6e6e73; }
+        html[data-theme="light"] .lang-switch button:hover { color: #1d1d1f; }
+        html[data-theme="light"] .lang-switch button.on { background: #1d1d1f; color: #ffffff; }
+
         /* 화면 모드 전환 스위치 (허브와 동일 규격)
          * 노브가 왼쪽(달)이면 다크, 오른쪽(해)으로 밀리면 라이트.
          * 노브에 덮인 쪽 아이콘은 배경색으로 반전시켜 현재 상태를 드러낸다. */
@@ -401,7 +435,11 @@
                 <a href="https://www.educanada.ca/index.aspx?lang=eng" target="_blank" rel="noopener" class="hover:text-white transition">EduCanada</a>
             </div>
             <div class="flex items-center gap-2">
-                <button type="button" class="theme-switch" role="switch" aria-checked="false" onclick="toggleTheme()" aria-label="화면 모드 전환" title="밝게 / 어둡게">
+                <div class="lang-switch" role="group" data-i18n-aria="langAria" aria-label="언어 선택">
+                    <button type="button" data-lang="ko" onclick="setLang('ko')" aria-pressed="true">KO</button>
+                    <button type="button" data-lang="en" onclick="setLang('en')" aria-pressed="false">EN</button>
+                </div>
+                <button type="button" class="theme-switch" role="switch" aria-checked="false" onclick="toggleTheme()" data-i18n-aria="themeAria" data-i18n-title="themeTitle" aria-label="화면 모드 전환" title="밝게 / 어둡게">
                     <span class="switch-track" aria-hidden="true">
                         <span class="switch-knob"></span>
                         <svg class="switch-icon icon-moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
@@ -409,7 +447,7 @@
                     </span>
                     <span class="switch-label" data-theme-label>다크</span>
                 </button>
-                <a href="https://jaebong-choi.github.io/study-guide-hub/" class="text-gray-300 hover:text-white transition border border-gray-600 hover:border-gray-400 rounded-full px-3 py-1.5 inline-flex items-center gap-1.5 whitespace-nowrap"><i class="fa-solid fa-globe text-[#FF7059]"></i> 국가 선택</a>
+                <a href="https://jaebong-choi.github.io/study-guide-hub/" class="text-gray-300 hover:text-white transition border border-gray-600 hover:border-gray-400 rounded-full px-3 py-1.5 inline-flex items-center gap-1.5 whitespace-nowrap"><i class="fa-solid fa-globe text-[#FF7059]"></i> <span data-i18n="navHub">국가 선택</span></a>
             </div>
         </div>
     </nav>
@@ -421,9 +459,9 @@
         <div class="max-w-[1200px] mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center relative">
             <!-- Left: copy + track choice -->
             <div class="text-center lg:text-left order-2 lg:order-1">
-                <p class="sf-text-body text-gray-400 mb-5 fade-in-up tracking-widest uppercase text-xs">Canada College Pathway Guide</p>
+                <p class="sf-text-body text-gray-400 mb-5 fade-in-up tracking-widest uppercase text-xs" data-i18n="heroEyebrow">Canada College Pathway Guide</p>
 
-                <h1 class="sf-display-hero text-apple-white mb-10 fade-in-up delay-100" style="white-space:nowrap; font-size:clamp(22px, 6.8vw, 44px); line-height:1.2;">
+                <h1 class="sf-display-hero text-apple-white mb-10 fade-in-up delay-100" style="font-size:clamp(22px, 6.8vw, 44px); line-height:1.2;" data-i18n-html="heroTitle">
                     3분 진단 캐나다 유학<br><span class="text-[#FF7059]">내 상태로 진학 학교 체크</span>
                 </h1>
 
@@ -432,17 +470,17 @@
                     <button onclick="startConsulting('career')" class="degree-card w-full">
                         <div class="flex items-center justify-between mb-3">
                             <i class="fa-solid fa-briefcase text-2xl text-[#FF7059]"></i>
-                            <span class="go">진단 시작 <i class="fa-solid fa-arrow-right text-xs"></i></span>
+                            <span class="go"><span data-i18n="heroGo">진단 시작</span> <i class="fa-solid fa-arrow-right text-xs"></i></span>
                         </div>
-                        <h3 class="sf-display-card-bold text-white mb-1">커리어·이민 트랙</h3>
-                        <p class="sf-text-caption text-gray-400">고졸·대졸·직장인. 공립 컬리지 디플로마로 취업허가(PGWP), 그리고 영주권 경로까지.</p>
+                        <h3 class="sf-display-card-bold text-white mb-1" data-i18n="heroCareerTitle">커리어·이민 트랙</h3>
+                        <p class="sf-text-caption text-gray-400" data-i18n="heroCareerDesc">고졸·대졸·직장인. 공립 컬리지 디플로마로 취업허가(PGWP), 그리고 영주권 경로까지.</p>
                     </button>
                     <button onclick="startConsulting('transfer')" class="degree-card w-full">
                         <div class="flex items-center justify-between mb-3">
                             <i class="fa-solid fa-graduation-cap text-2xl text-[#FF7059]"></i>
-                            <span class="go">진단 시작 <i class="fa-solid fa-arrow-right text-xs"></i></span>
+                            <span class="go"><span data-i18n="heroGo">진단 시작</span> <i class="fa-solid fa-arrow-right text-xs"></i></span>
                         </div>
-                        <h3 class="sf-display-card-bold text-white mb-1">대학 편입 트랙</h3>
+                        <h3 class="sf-display-card-bold text-white mb-1" data-i18n="heroTransferTitle">대학 편입 트랙</h3>
                         <p class="sf-text-caption text-gray-400">컬리지 2년 후 명문대 편입. BC 트랜스퍼 등 제도화된 편입 시스템으로 학비를 아끼며 학위까지.</p>
                     </button>
                 </div>
@@ -454,7 +492,7 @@
 
             <!-- Right: hero photo -->
             <div class="fade-in-up delay-200 order-1 lg:order-2">
-                <img src="images/hero-canada.jpg" alt="캐나다 로키 설산 앞에서 캐나다 국기를 든 사람"
+                <img src="images/hero-canada.jpg" alt="캐나다 로키 설산 앞에서 캐나다 국기를 든 사람" data-i18n-alt="heroPhotoAlt"
                      class="rounded-2xl w-full h-56 md:h-80 lg:h-[560px] object-cover object-center border border-white/10">
             </div>
         </div>
@@ -470,7 +508,7 @@
 
             <div class="flex items-center justify-between gap-3 mb-6">
                 <button onclick="goBack()" class="apple-link-pill light-bg shrink-0" style="padding: 6px 16px; font-size: 15px;">
-                    <i class="fa-solid fa-chevron-left text-xs mr-1"></i> 이전
+                    <i class="fa-solid fa-chevron-left text-xs mr-1"></i> <span data-i18n="qBack">이전</span>
                 </button>
                 <span id="track-chip" class="track-chip"><i class="fa-solid fa-briefcase"></i> 커리어·이민 트랙</span>
                 <span class="shrink-0" style="width: 72px;" aria-hidden="true"></span>
@@ -490,23 +528,23 @@
     <!-- ===================== RESULT HERO ===================== -->
     <div id="result-hero" class="hidden bg-apple-black text-apple-white py-32 px-4 text-center">
         <div class="max-w-[980px] mx-auto fade-in-up">
-            <h2 class="sf-display-section mb-6">분석이 완료되었습니다.</h2>
+            <h2 class="sf-display-section mb-6" data-i18n="resultDone">분석이 완료되었습니다.</h2>
             <h3 id="result-pathway-title" class="sf-display-hero text-apple-blue mb-8">Pathway Name</h3>
             <p id="result-pathway-desc" class="sf-text-body text-gray-300 max-w-3xl mx-auto mb-10 leading-relaxed">
                 Pathway Description
             </p>
             <div class="flex flex-col sm:flex-row justify-center gap-4">
                 <button onclick="openConsultForm()" class="apple-btn-primary">
-                    <i class="fa-solid fa-comments text-xs mr-2"></i> 이 결과로 무료 상담 받기
+                    <i class="fa-solid fa-comments text-xs mr-2"></i> <span data-i18n="resultCta">이 결과로 무료 상담 받기</span>
                 </button>
                 <button id="share-btn" onclick="copyResultLink()" class="apple-link-pill">
-                    <i class="fa-solid fa-link text-xs mr-2"></i> 결과 링크 복사
+                    <i class="fa-solid fa-link text-xs mr-2"></i> <span data-i18n="resultCopy">결과 링크 복사</span>
                 </button>
                 <button onclick="resetConsulting()" class="apple-link-pill">
-                    다시 진단하기 <i class="fa-solid fa-rotate-right text-xs ml-2"></i>
+                    <span data-i18n="resultRestart">다시 진단하기</span> <i class="fa-solid fa-rotate-right text-xs ml-2"></i>
                 </button>
             </div>
-            <p id="share-hint" class="sf-text-caption text-gray-500 mt-5">무료 상담 신청 시 이 진단 결과가 자동으로 첨부됩니다. 링크를 복사해 카카오톡·문자로 전달하면 같은 결과 페이지가 열립니다.</p>
+            <p id="share-hint" class="sf-text-caption text-gray-500 mt-5" data-i18n="shareHint">무료 상담 신청 시 이 진단 결과가 자동으로 첨부됩니다. 링크를 복사해 카카오톡·문자로 전달하면 같은 결과 페이지가 열립니다.</p>
         </div>
     </div>
 
@@ -541,14 +579,14 @@
                     <p class="sf-text-caption text-gray-500 text-center mb-6" id="rec-warning-alt"></p>
                     <div class="flex flex-col sm:flex-row justify-center gap-3">
                         <button id="rec-alt-btn" onclick="" class="apple-link-pill light-bg"></button>
-                        <button onclick="startConsulting('transfer')" class="apple-btn-primary">학위·편입 트랙으로 전환 <i class="fa-solid fa-stairs text-xs ml-2"></i></button>
+                        <button onclick="startConsulting('transfer')" class="apple-btn-primary"><span data-i18n="switchTrackBtn">학위·편입 트랙으로 전환</span> <i class="fa-solid fa-stairs text-xs ml-2"></i></button>
                     </div>
                 </div>
 
                 <!-- 고교 졸업 전: 국제 사립학교 경로 (편입 트랙 + 고3·고졸에서만 표시) -->
                 <div id="hs-private-card" class="hidden apple-card-flat max-w-4xl mx-auto mt-6 border border-gray-200" style="border-radius:12px;">
-                    <span class="region-badge mb-4"><i class="fa-solid fa-school"></i> 중·고교 재학 ~ 고교 졸업 전 추가 옵션</span>
-                    <h4 class="sf-display-card-bold text-[#1d1d1f] mb-3">국제 사립학교 → 대학 직행 경로</h4>
+                    <span class="region-badge mb-4"><i class="fa-solid fa-school"></i> <span data-i18n="hsExtraBadge">중·고교 재학 ~ 고교 졸업 전 추가 옵션</span></span>
+                    <h4 class="sf-display-card-bold text-[#1d1d1f] mb-3" data-i18n="hsTitle">국제 사립학교 → 대학 직행 경로</h4>
                     <p class="sf-text-caption text-gray-600 mb-5">
                         중·고등학교 재학 중이거나 고교 졸업 전(고3 포함)이라면 컬리지 편입 외에, 토론토의 국제 사립학교(BICC·TAIE·UMC 하이스쿨 등)에서
                         온타리오 고교 졸업장(OSSD)을 취득한 뒤 캐나다 대학에 바로 지원하는 경로도 선택할 수 있습니다.
@@ -562,7 +600,7 @@
                     <p class="sf-text-caption text-gray-500 mb-6"><i class="fa-solid fa-circle-exclamation text-orange-500 mr-1"></i> 입학 시기·이수 과목에 따라 기간이 달라지며, 대학별 영어 요건(IELTS 등)은 별도로 충족해야 합니다. 학교별 학비·기숙사 정보는 각 학교 공식 페이지에서 확인하세요.</p>
                     <div class="text-center sm:text-left">
                         <a href="https://www.ontario.ca/page/private-schools" target="_blank" rel="noopener" class="apple-link-pill light-bg">
-                            온타리오 사립학교 공식 안내 (Ontario.ca) <i class="fa-solid fa-chevron-right text-xs ml-2"></i>
+                            <span data-i18n="ontarioPrivateLink2">온타리오 사립학교 공식 안내 (Ontario.ca)</span> <i class="fa-solid fa-chevron-right text-xs ml-2"></i>
                         </a>
                     </div>
                 </div>
@@ -574,7 +612,7 @@
                     <div class="flex items-start gap-4">
                         <i class="fa-solid fa-language text-[#FF7059] text-2xl mt-1"></i>
                         <div>
-                            <h4 class="sf-display-card-bold text-white mb-2" id="lang-notice-title">영어 성적이 없어도 시작할 수 있습니다</h4>
+                            <h4 class="sf-display-card-bold text-white mb-2" id="lang-notice-title" data-i18n="langNoticeTitle">영어 성적이 없어도 시작할 수 있습니다</h4>
                             <p class="sf-text-body text-gray-300" id="lang-notice-desc"></p>
                         </div>
                     </div>
@@ -583,8 +621,8 @@
 
             <!-- Pathway Guide (디플로마 직행 / 포스트그래듀에이트 / 대학 편입) -->
             <div class="mb-24" id="pathway-guide-section">
-                <h3 class="sf-display-section text-center mb-3">캐나다 진학 경로 가이드</h3>
-                <p class="sf-text-body text-gray-500 text-center mb-12 max-w-2xl mx-auto" id="pathway-guide-sub">
+                <h3 class="sf-display-section text-center mb-3" data-i18n="guideSectionTitle">캐나다 진학 경로 가이드</h3>
+                <p class="sf-text-body text-gray-500 text-center mb-12 max-w-2xl mx-auto" id="pathway-guide-sub" data-i18n="guideSectionSub">
                     같은 목표라도 학력과 전공에 따라 최적의 경로는 다릅니다. 세 가지 진학 경로를 비교해 보세요.
                 </p>
                 <div id="pathway-guide-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
@@ -614,14 +652,14 @@
                 <div class="text-center md:text-left mb-8">
                     <p class="sf-text-caption text-[#FF7059] font-semibold uppercase tracking-wider mb-2">Official Sources</p>
                     <h4 class="sf-display-card text-white mb-2" id="board-section-title">공식 정보로 다음 단계를 확인하세요</h4>
-                    <p class="sf-text-body text-gray-400">학업허가·PGWP·편입 제도는 캐나다 정부와 각 기관의 공식 채널 기준이 항상 우선입니다.</p>
+                    <p class="sf-text-body text-gray-400" data-i18n="boardSub">학업허가·PGWP·편입 제도는 캐나다 정부와 각 기관의 공식 채널 기준이 항상 우선입니다.</p>
                 </div>
                 <div id="board-articles" class="space-y-3 mb-8">
                     <!-- official links injected via JS -->
                 </div>
                 <div class="text-center md:text-left">
                     <a href="https://www.educanada.ca/index.aspx?lang=eng" target="_blank" rel="noopener" class="apple-btn-primary bg-white text-[#1d1d1f] hover:bg-gray-200">
-                        캐나다 정부 공식 유학 안내 (EduCanada) <i class="fa-solid fa-arrow-right text-xs ml-2"></i>
+                        <span data-i18n="eduCanadaBtn">캐나다 정부 공식 유학 안내 (EduCanada)</span> <i class="fa-solid fa-arrow-right text-xs ml-2"></i>
                     </a>
                 </div>
             </div>
@@ -638,7 +676,7 @@
 
                 <!-- Visa & Official Info Card -->
                 <div class="apple-card-flat flex flex-col bg-[#272729] text-white">
-                    <h4 class="sf-display-card-bold mb-6 border-b border-gray-600 pb-4">비자 · 공식 정보</h4>
+                    <h4 class="sf-display-card-bold mb-6 border-b border-gray-600 pb-4" data-i18n="visaTitle">비자 · 공식 정보</h4>
                     <ul class="sf-text-body space-y-4 text-gray-300 flex-1">
                         <li class="flex items-start"><i class="fa-solid fa-passport text-[#FF7059] mt-1 mr-4"></i> <span><strong class="text-white">학업허가 (Study Permit):</strong> 신청 요건·PAL·처리 기간은 <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/study-permit.html" target="_blank" rel="noopener" class="text-[#FF7059] hover:underline">IRCC 공식 안내</a>에서 확인하세요.</span></li>
                         <li class="flex items-start"><i class="fa-solid fa-briefcase text-[#FF7059] mt-1 mr-4"></i> <span><strong class="text-white">졸업 후 취업허가 (PGWP):</strong> 적격 전공 목록과 요건은 <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/work/after-graduation.html" target="_blank" rel="noopener" class="text-[#FF7059] hover:underline">IRCC PGWP 공식 페이지</a>가 유일한 기준입니다.</span></li>
@@ -650,22 +688,22 @@
 
         <!-- Panorama -->
         <div class="max-w-[980px] mx-auto mt-8">
-            <img src="images/canada-panorama.jpg" alt="캐나다 국기와 CANADA 레터링" class="rounded-xl w-full h-36 md:h-48 object-cover" loading="lazy">
+            <img src="images/canada-panorama.jpg" alt="캐나다 국기와 CANADA 레터링" data-i18n-alt="panoramaAlt" class="rounded-xl w-full h-36 md:h-48 object-cover" loading="lazy">
         </div>
 
         <!-- Call to Action Footer -->
         <div class="mt-20 text-center border-t border-gray-200 pt-16">
-            <h2 class="sf-display-section mb-4">이 결과, 저장해 두세요.</h2>
+            <h2 class="sf-display-section mb-4" data-i18n="saveTitle">이 결과, 저장해 두세요.</h2>
             <p class="sf-text-body text-gray-500 mb-8 max-w-xl mx-auto">진단 결과는 링크 하나에 담겨 있습니다. 복사해서 나에게 보내 두거나, 함께 고민하는 친구·가족과 공유하세요.</p>
             <div class="flex flex-col sm:flex-row justify-center gap-4">
                 <button onclick="openConsultForm()" class="apple-btn-primary">
-                    <i class="fa-solid fa-comments text-xs mr-2"></i> 이 결과로 무료 상담 받기
+                    <i class="fa-solid fa-comments text-xs mr-2"></i> <span data-i18n="resultCta">이 결과로 무료 상담 받기</span>
                 </button>
                 <button onclick="copyResultLink(this)" class="apple-link-pill light-bg">
-                    <i class="fa-solid fa-link text-xs mr-2"></i> 결과 링크 복사
+                    <i class="fa-solid fa-link text-xs mr-2"></i> <span data-i18n="resultCopy">결과 링크 복사</span>
                 </button>
                 <button onclick="resetConsulting()" class="apple-link-pill light-bg">
-                    다시 진단하기 <i class="fa-solid fa-rotate-right text-xs ml-2"></i>
+                    <span data-i18n="resultRestart">다시 진단하기</span> <i class="fa-solid fa-rotate-right text-xs ml-2"></i>
                 </button>
             </div>
         </div>
@@ -705,21 +743,21 @@
             <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-10">
                 <div class="max-w-md">
                     <p class="text-white font-bold text-base mb-3"><i class="fa-solid fa-map-location-dot text-[#FF7059] mr-2"></i>CA Study Guide</p>
-                    <p class="sf-text-caption text-gray-500 mb-1">캐나다 컬리지 진학 정보 가이드 — PGWP·편입 AI 진단</p>
-                    <p class="sf-text-caption text-gray-500">본 사이트는 특정 유학원·기관과 무관한 무료 정보 페이지입니다. PGWP 적격 여부는 2026년 IRCC 공식 발표 기준이며, 지원 전 반드시 각 컬리지 공식 입학처와 IRCC 공식 안내에서 최신 정보를 확인하세요.</p>
+                    <p class="sf-text-caption text-gray-500 mb-1" data-i18n="footerTagline">캐나다 컬리지 진학 정보 가이드 — PGWP·편입 AI 진단</p>
+                    <p class="sf-text-caption text-gray-500" data-i18n="footerDisclaimer">본 사이트는 특정 유학원·기관과 무관한 무료 정보 페이지입니다. PGWP 적격 여부는 2026년 IRCC 공식 발표 기준이며, 지원 전 반드시 각 컬리지 공식 입학처와 IRCC 공식 안내에서 최신 정보를 확인하세요.</p>
                 </div>
                 <div>
-                    <p class="sf-text-caption font-bold text-gray-300 mb-3 uppercase tracking-wider">공식 정보 바로가기</p>
+                    <p class="sf-text-caption font-bold text-gray-300 mb-3 uppercase tracking-wider" data-i18n="footerLinksTitle">공식 정보 바로가기</p>
                     <ul class="sf-text-caption space-y-2">
-                        <li><a href="https://www.educanada.ca/index.aspx?lang=eng" target="_blank" rel="noopener" class="hover:text-white">EduCanada (캐나다 정부 유학 포털)</a></li>
-                        <li><a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/study-permit.html" target="_blank" rel="noopener" class="hover:text-white">학업허가 (Study Permit) 공식 안내</a></li>
-                        <li><a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/work/after-graduation.html" target="_blank" rel="noopener" class="hover:text-white">졸업 후 취업허가 (PGWP) 공식 안내</a></li>
-                        <li><a href="https://www.bctransferguide.ca/" target="_blank" rel="noopener" class="hover:text-white">BC Transfer Guide (편입 공식 시스템)</a></li>
+                        <li><a href="https://www.educanada.ca/index.aspx?lang=eng" target="_blank" rel="noopener" class="hover:text-white" data-i18n="footerLink1">EduCanada (캐나다 정부 유학 포털)</a></li>
+                        <li><a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/study-permit.html" target="_blank" rel="noopener" class="hover:text-white" data-i18n="footerLink2">학업허가 (Study Permit) 공식 안내</a></li>
+                        <li><a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/work/after-graduation.html" target="_blank" rel="noopener" class="hover:text-white" data-i18n="footerLink3">졸업 후 취업허가 (PGWP) 공식 안내</a></li>
+                        <li><a href="https://www.bctransferguide.ca/" target="_blank" rel="noopener" class="hover:text-white" data-i18n="footerLink4">BC Transfer Guide (편입 공식 시스템)</a></li>
                     </ul>
                 </div>
             </div>
-            <p class="sf-text-caption text-gray-600 mt-10 pt-6 border-t border-[#26262a]">※ 본 가이드는 퀘벡(CEGEP) 컬리지 진학을 다루지 않습니다.</p>
-            <p class="sf-text-caption text-gray-600 mt-3">© CA Study Guide. 정보 제공 목적으로 제작된 페이지입니다.</p>
+            <p class="sf-text-caption text-gray-600 mt-10 pt-6 border-t border-[#26262a]" data-i18n="footerQuebec">※ 본 가이드는 퀘벡(CEGEP) 컬리지 진학을 다루지 않습니다.</p>
+            <p class="sf-text-caption text-gray-600 mt-3" data-i18n="footerCopy">© CA Study Guide. 정보 제공 목적으로 제작된 페이지입니다.</p>
         </div>
     </footer>
 
@@ -997,7 +1035,7 @@
             stepIndex = 0;
             stepHistory = [];
 
-            document.getElementById('track-chip').innerHTML = flows[track].chip;
+            document.getElementById('track-chip').innerHTML = tr(flows[track].chip);
 
             document.getElementById('hero-section').classList.add('hidden');
             document.getElementById('result-hero').classList.add('hidden');
@@ -1030,7 +1068,7 @@
             const stepId = flow.steps[stepIndex];
             const q = questionFlow[stepId];
             document.getElementById('step-indicator').innerText = `Step ${stepIndex + 1}`;
-            document.getElementById('question-text').innerText = q.question;
+            document.getElementById('question-text').innerText = tr(q.question);
 
             const progress = ((stepIndex + 1) / flow.steps.length) * 100;
             document.getElementById('progress-bar').style.width = `${progress > 100 ? 100 : progress}%`;
@@ -1043,7 +1081,7 @@
                 const div = document.createElement('div');
                 div.className = `option-card fade-in-up`;
                 div.style.animationDelay = `${delay}ms`;
-                div.innerText = opt.label;
+                div.innerText = tr(opt.label);
                 div.onclick = () => handleAnswer(opt, q.key);
                 grid.appendChild(div);
             });
@@ -1110,19 +1148,19 @@
                 ? 'grid grid-cols-1 max-w-md mx-auto gap-6'
                 : 'grid grid-cols-1 md:grid-cols-' + list.length + ' gap-6';
             document.getElementById('pathway-guide-sub').innerText = list.length === 1
-                ? '진단 결과, 아래 경로가 가장 적합합니다. 단계별 준비 과정을 확인해 보세요.'
-                : '같은 목표라도 학력과 전공에 따라 최적의 경로는 다릅니다. 진학 경로를 비교해 보세요.';
+                ? t('guideSubMatched')
+                : t('guideSubCompare');
             grid.innerHTML = list.map(g => {
                 const isMine = true;
                 return `
                 <div class="apple-card-flat flex flex-col h-full ${isMine ? 'ring-2 ring-[#D64535]' : 'border border-gray-200'}" style="border-radius:12px;">
-                    ${isMine ? '<span class="region-badge mb-4 self-start"><i class="fa-solid fa-location-dot"></i> 내 추천 경로</span>' : '<span class="mb-4" style="height:24px;"></span>'}
+                    ${isMine ? `<span class="region-badge mb-4 self-start"><i class="fa-solid fa-location-dot"></i> ${t('guideMine')}</span>` : '<span class="mb-4" style="height:24px;"></span>'}
                     <div class="flex items-center gap-3 mb-1">
                         <i class="fa-solid ${g.icon} text-apple-blue text-xl"></i>
                         <h4 class="sf-display-card-bold text-[#1d1d1f]">${g.title}</h4>
                     </div>
                     <p class="text-xs text-apple-blue font-semibold uppercase tracking-wider mb-5">${g.en}</p>
-                    <p class="sf-text-caption text-gray-600 mb-5"><strong class="text-[#1d1d1f]">이런 분께:</strong> ${g.target}</p>
+                    <p class="sf-text-caption text-gray-600 mb-5"><strong class="text-[#1d1d1f]">${t('guideFor')}</strong> ${tr(g.target)}</p>
                     <ol class="sf-text-caption text-gray-600 space-y-2 mb-5">
                         ${g.steps.map((s, i) => `<li class="flex items-start"><span class="shrink-0 w-5 h-5 rounded-full bg-[#D64535] text-white text-[11px] font-bold flex items-center justify-center mr-2 mt-0.5">${i + 1}</span><span>${s}</span></li>`).join('')}
                     </ol>
@@ -1137,9 +1175,7 @@
             const el = document.getElementById('lang-notice');
             const noEng = (p.english === "none" || p.english === "mid");
             if (!noEng) { el.classList.add('hidden'); return; }
-            const desc = (track === "ossd")
-                ? "공인 영어 점수가 아직 없어도 괜찮습니다. 국제 사립학교의 ESL 과정을 12학년 정규 수업과 병행해 영어를 끌어올리며, 학교 성적으로 대학 조건부 입학 허가(Conditional Offer)를 받는 방식으로 진행할 수 있습니다."
-                : "공인 영어 점수가 아직 없어도 괜찮습니다. 현지 어학연수(패스웨이) 과정을 먼저 이수한 뒤, 어학원 수료 성적으로 컬리지·대학에 조건부 입학 허가(Conditional Offer)를 받을 수 있습니다. 별도의 IELTS 없이 진학한 사례도 많습니다.";
+            const desc = (track === "ossd") ? t('langNoticeOssd') : t('langNoticeDefault');
             document.getElementById('lang-notice-desc').innerText = desc;
             el.classList.remove('hidden');
         }
@@ -1254,12 +1290,13 @@
 
         function collegeCard(c) {
             const region = REGIONS[c.regionId];
-            const typeLabel = TYPE_LABELS[c.type] || "컬리지";
-            const tuition = c.tuition_intl === null ? "공식 홈페이지 확인" : c.tuition_intl;
-            const subLine = c.strength ? "강점: " + c.strength : region.name_ko + " " + (TIER_LABELS[c.market_tier] || "추천") + " 컬리지";
-            const majors = (c.rec_majors && c.rec_majors.length) ? c.rec_majors.join(" · ") : "공식 홈페이지 확인";
+            const typeLabel = tr(TYPE_LABELS[c.type] || "컬리지");
+            const tuition = c.tuition_intl === null ? t('checkOfficial') : c.tuition_intl;
+            const subLine = c.strength ? t('strengthPrefix') + tr(c.strength)
+                : t('subLineTier')(tr(region.name_ko), tr(TIER_LABELS[c.market_tier] || "추천"));
+            const majors = (c.rec_majors && c.rec_majors.length) ? c.rec_majors.map(tr).join(" · ") : t('checkOfficial');
             const linkUrl = c.url || OFFICIAL_LINKS.educanada;
-            const linkLabel = "공식 홈페이지 방문";
+            const linkLabel = t('visitSite');
             return `
                 <div class="apple-card flex flex-col justify-between h-full">
                     <div>
@@ -1267,21 +1304,21 @@
                             <h4 class="sf-display-card-bold text-[#1d1d1f]">${c.name}</h4>
                             <span class="text-[11px] font-bold text-gray-400 bg-gray-100 rounded-full px-2.5 py-1 whitespace-nowrap mt-1">${REGION_SHORT[c.regionId]}</span>
                         </div>
-                        ${c._badge ? `<span class="region-badge mb-3"><i class="fa-solid fa-star"></i> ${c._badge}</span>` : ''}
+                        ${c._badge ? `<span class="region-badge mb-3"><i class="fa-solid fa-star"></i> ${tr(c._badge)}</span>` : ''}
                         <p class="text-xs text-apple-blue font-semibold mb-4 mt-2 uppercase tracking-wider">${typeLabel} · ${c.city}</p>
                         <p class="sf-text-caption text-gray-500 mb-6 font-semibold uppercase tracking-wide">${subLine}</p>
 
                         <div class="bg-[#fafafc] rounded-[8px] p-4 mb-8 space-y-3">
                             <div class="flex justify-between sf-text-caption border-b border-gray-100 pb-2">
-                                <span class="text-gray-500">추천 전공</span>
+                                <span class="text-gray-500">${t('majorsLabel')}</span>
                                 <strong class="text-[#1d1d1f] text-right w-2/3">${majors}</strong>
                             </div>
                             <div class="flex justify-between sf-text-caption border-b border-gray-100 pb-2">
-                                <span class="text-gray-500">권역</span>
-                                <strong class="text-[#1d1d1f] text-right w-1/2">${region.name_ko}</strong>
+                                <span class="text-gray-500">${t('regionLabel')}</span>
+                                <strong class="text-[#1d1d1f] text-right w-1/2">${tr(region.name_ko)}</strong>
                             </div>
                             <div class="flex justify-between sf-text-caption pt-1">
-                                <span class="text-gray-500">연간 학비 <span class="text-gray-400">(2026 국제학생)</span></span>
+                                <span class="text-gray-500">${t('tuitionLabel')} <span class="text-gray-400">${t('tuitionNote')}</span></span>
                                 <strong class="text-[#1d1d1f] text-orange-600">${tuition}</strong>
                             </div>
                         </div>
@@ -1335,49 +1372,47 @@
             // Hero title/desc
             let title, desc;
             if (pgwp === "not_eligible" || pgwp === "mostly_not_eligible") {
-                title = major.name_ko + " 경로, 재설계가 필요합니다";
-                desc = "선택하신 " + major.name_ko + " 분야의 컬리지 디플로마는 2026년 기준 졸업 후 취업허가(PGWP) 대상이 아닙니다. 하지만 경로를 바꾸면 목표는 유효합니다. 아래 추천 전공 카드에서 대안 경로를 확인해 주세요.";
+                title = t('careerTitleBlocked')(tr(major.name_ko));
+                desc = t('careerDescBlocked')(tr(major.name_ko));
             } else {
-                title = major.name_ko + (isPostgrad ? " 포스트그래듀에이트 경로" : " 커리어·이민 경로");
-                desc = major.name_ko + " 분야는 2026년 기준 비학위 과정 PGWP 적격 섹터(" + major.sector + ")에 해당합니다. "
-                    + (isPostgrad
-                        ? "보유하신 학사 학위 위에 1~2년 포스트그래듀에이트 과정을 더해 취업허가와 현지 커리어로 연결하는 경로를 추천합니다."
-                        : "공립 컬리지 디플로마 2년 → 취업허가(PGWP) 최대 3년 → 경력 12개월 → 이민 검토로 이어지는 경로를 추천합니다.");
+                title = t('careerTitle')(tr(major.name_ko), isPostgrad);
+                desc = t('careerDescBase')(tr(major.name_ko), tr(major.sector))
+                    + (isPostgrad ? t('careerDescPostgrad') : t('careerDescDiploma'));
                 if (pgwp === "conditional") {
-                    desc += " 다만 이 분야는 프로그램별로 적격 여부가 갈리는 조건부 분야이므로, 지원 전 CIP 코드 확인이 꼭 필요합니다.";
+                    desc += t('careerDescConditional');
                 }
-                if (major.immigration_note) desc += " (" + major.immigration_note + ")";
+                if (major.immigration_note) desc += " (" + tr(major.immigration_note) + ")";
             }
             if (p.english === "none" || p.english === "mid") {
-                desc += " 공인 영어 성적이 아직 부족하다면, 어학연수·패스웨이 과정을 병행해 입학 요건을 맞출 수 있습니다.";
+                desc += t('engShortNote');
             }
             document.getElementById('result-pathway-title').innerText = title;
             document.getElementById('result-pathway-desc').innerText = desc;
 
             // Profile Summary
             renderSummary([
-                ["Status", labelOf("a_status", p.status)],
-                ["Goal", labelOf("a_goal", p.goal)],
-                ["Major", p.majorCat === "unsure" ? "미정 → " + major.name_ko : major.name_ko],
-                ["Region", labelOf("a_env", p.env)],
-                ["English", labelOf("a_english", p.english)]
+                ["Status", tr(labelOf("a_status", p.status))],
+                ["Goal", tr(labelOf("a_goal", p.goal))],
+                ["Major", p.majorCat === "unsure" ? t('summaryUndecided')(tr(major.name_ko)) : tr(major.name_ko)],
+                ["Region", tr(labelOf("a_env", p.env))],
+                ["English", tr(labelOf("a_english", p.english))]
             ]);
 
             // Recommended Major card
-            document.getElementById('rec-major-badge').innerHTML = PGWP_BADGES[pgwp] || "";
-            document.getElementById('rec-major-title').innerText = major.name_ko + (isPostgrad ? " · 포스트그래듀에이트" : " · 디플로마 과정");
-            let majorDesc = (resolved.autoNote ? resolved.autoNote + " " : "");
-            majorDesc += "대표 프로그램은 아래와 같으며, 실제 지원 전에는 프로그램 단위(CIP 코드)로 PGWP 적격 여부를 IRCC 공식 목록에서 확인하세요.";
+            document.getElementById('rec-major-badge').innerHTML = tr(PGWP_BADGES[pgwp] || "");
+            document.getElementById('rec-major-title').innerText = tr(major.name_ko) + (isPostgrad ? t('recTitleSuffixPost') : t('recTitleSuffixDiploma'));
+            let majorDesc = (resolved.autoNote ? tr(resolved.autoNote) + " " : "");
+            majorDesc += t('recDescCommon');
             document.getElementById('rec-major-desc').innerText = majorDesc;
             document.getElementById('rec-major-programs').innerHTML = major.examples.slice(0, 3).map(e =>
-                `<span class="track-chip"><i class="fa-solid fa-book-open"></i> ${e}</span>`).join('');
+                `<span class="track-chip"><i class="fa-solid fa-book-open"></i> ${tr(e)}</span>`).join('');
 
             const noteEl = document.getElementById('rec-major-note');
             if (pgwp === "conditional" && major.caution) {
-                noteEl.innerText = "⚠ 조건부 분야: " + major.caution;
+                noteEl.innerText = t('noteConditional')(tr(major.caution));
                 noteEl.classList.remove('hidden');
             } else if (major.caution) {
-                noteEl.innerText = "※ " + major.caution;
+                noteEl.innerText = t('noteCaution')(tr(major.caution));
                 noteEl.classList.remove('hidden');
             } else {
                 noteEl.classList.add('hidden');
@@ -1386,13 +1421,12 @@
             // 경고 카드 (PGWP 불가 전공)
             const warnEl = document.getElementById('rec-warning');
             if (pgwp === "not_eligible" || pgwp === "mostly_not_eligible") {
-                document.getElementById('rec-warning-text').innerText =
-                    "이 전공의 컬리지 디플로마는 2026년 기준 졸업 후 취업허가(PGWP) 대상이 아닙니다.";
-                document.getElementById('rec-warning-alt').innerText = "대안: " + (major.alternative || "학위 과정 또는 대학 편입 트랙으로 우회를 검토해 보세요.");
+                document.getElementById('rec-warning-text').innerText = t('warnText');
+                document.getElementById('rec-warning-alt').innerText = t('warnAlt')(major.alternative ? tr(major.alternative) : t('warnAltDefault'));
                 const altId = ADJACENT_MAJOR[major.id];
                 const altBtn = document.getElementById('rec-alt-btn');
                 if (altId) {
-                    altBtn.innerHTML = '인접 적격 전공 보기 — ' + MAJORS[altId].name_ko + ' <i class="fa-solid fa-arrow-right text-xs ml-2"></i>';
+                    altBtn.innerHTML = t('altBtn')(tr(MAJORS[altId].name_ko)) + ' <i class="fa-solid fa-arrow-right text-xs ml-2"></i>';
                     altBtn.onclick = () => switchMajor(altId);
                     altBtn.classList.remove('hidden');
                 } else {
@@ -1415,15 +1449,16 @@
             // 권역 + 컬리지 추천
             const regionIds = scoreRegions(p, major.id);
             const noteRegion = document.getElementById('region-note');
-            noteRegion.innerText = "※ 진단 결과, " + regionIds.map(r => REGIONS[r].name_ko).join(" · ") + " 권역을 우선 추천합니다. ("
-                + regionIds.map(r => REGIONS[r].tags[0]).join(" / ") + ")";
+            noteRegion.innerText = t('regionNote')(
+                regionIds.map(r => tr(REGIONS[r].name_ko)).join(" · "),
+                regionIds.map(r => tr(REGIONS[r].tags[0])).join(" / "));
             noteRegion.classList.remove('hidden');
 
             document.getElementById('university-grid').innerHTML = pickColleges(regionIds, major.id).map(collegeCard).join('');
 
             renderLangNotice(p, "career");
 
-            renderCommonBlocks(major.name_ko, isPostgrad ? "포스트그래듀에이트" : "디플로마");
+            renderCommonBlocks(tr(major.name_ko), isPostgrad ? t('routePostgrad') : t('routeDiploma'));
         }
 
         // ---------- 트랙 B: 대학 편입 / 대학 직행(중·고 재학) ----------
@@ -1435,37 +1470,32 @@
             }
             const isBC = p.bRegion !== "ontario";
 
-            document.getElementById('result-pathway-title').innerText = "컬리지 → 대학 편입 경로 (2+2)";
-            let desc = isBC
-                ? "BC주는 컬리지 학점이 대학으로 그대로 인정되는 BC 트랜스퍼 시스템이 제도화되어 있습니다. Langara·Douglas 등 편입 특화 컬리지에서 2년을 이수하면 UBC·SFU 등 명문대 3학년 편입에 도전할 수 있습니다."
-                : "온타리오는 Seneca·Humber·Sheridan 등 대학 학위·편입 협정을 갖춘 컬리지가 많습니다. 컬리지 2년 후 토론토대 등으로의 편입 또는 컬리지 학사 과정으로 학위까지 이어갈 수 있습니다.";
-            desc += " 무엇보다 편입·학위 과정은 전공 제한 없이 취업허가(PGWP)가 가능합니다.";
+            document.getElementById('result-pathway-title').innerText = t('transferTitle');
+            let desc = isBC ? t('transferDescBC') : t('transferDescON');
+            desc += t('transferDescCommon');
             if (p.english === "none" || p.english === "mid") {
-                desc += " 영어 성적이 아직 부족해도 조건부 입학과 어학연수·패스웨이 병행으로 시작할 수 있습니다.";
+                desc += t('transferEngNote');
             }
             document.getElementById('result-pathway-desc').innerText = desc;
 
             renderSummary([
-                ["Status", labelOf("b_status", p.status)],
-                ["Target", labelOf("b_region", p.bRegion)],
-                ["Field", labelOf("b_field", p.bField)],
-                ["English", labelOf("b_english", p.english)]
+                ["Status", tr(labelOf("b_status", p.status))],
+                ["Target", tr(labelOf("b_region", p.bRegion))],
+                ["Field", tr(labelOf("b_field", p.bField))],
+                ["English", tr(labelOf("b_english", p.english))]
             ]);
 
             // Major card: 편입 트랙 안내
-            document.getElementById('rec-major-badge').innerHTML =
-                '<span class="region-badge"><i class="fa-solid fa-circle-check"></i> PGWP 가능 (학위 취득 시 전공 제한 없음)</span>';
-            const fieldLabel = labelOf("b_field", p.bField);
+            document.getElementById('rec-major-badge').innerHTML = t('degreeBadge');
+            const fieldLabel = tr(labelOf("b_field", p.bField));
             document.getElementById('rec-major-title').innerText =
-                (p.bField === "undecided" ? "전공 탐색형" : fieldLabel) + " · 대학 편입 트랙";
-            document.getElementById('rec-major-desc').innerText =
-                "컬리지 1~2학년 과정에서 " + (p.bField === "undecided" ? "다양한 교양·기초 과목을 들으며 전공을 정하고" : fieldLabel + " 기초 과목을 이수하고")
-                + ", 성적(GPA)을 관리해 대학 3학년으로 편입하는 경로입니다. 편입 후 학사 학위를 취득하면 전공과 무관하게 취업허가(PGWP)를 받을 수 있습니다.";
-            document.getElementById('rec-major-programs').innerHTML = [
-                "University Transfer (편입 과정)", "Associate Degree (준학사)", "College Bachelor (컬리지 학사)"
-            ].map(e => `<span class="track-chip"><i class="fa-solid fa-book-open"></i> ${e}</span>`).join('');
+                (p.bField === "undecided" ? t('fieldUndecided') : fieldLabel) + t('transferTrackSuffix');
+            document.getElementById('rec-major-desc').innerText = t('transferMajorDesc')(
+                p.bField === "undecided" ? t('transferDescPartUndecided') : t('transferDescPartField')(fieldLabel));
+            document.getElementById('rec-major-programs').innerHTML = t('transferPrograms')
+                .map(e => `<span class="track-chip"><i class="fa-solid fa-book-open"></i> ${e}</span>`).join('');
             const noteEl = document.getElementById('rec-major-note');
-            noteEl.innerText = "※ 편입·학위 과정은 PGWP 전공 제한을 받지 않습니다. 편입 인정 학점·요건은 대학과 전공에 따라 다릅니다.";
+            noteEl.innerText = t('transferNote');
             noteEl.classList.remove('hidden');
             document.getElementById('rec-warning').classList.add('hidden');
 
@@ -1478,16 +1508,14 @@
             renderPathwayGuide("transfer");
 
             const noteRegion = document.getElementById('region-note');
-            noteRegion.innerText = isBC
-                ? "※ BC 트랜스퍼 시스템 기반의 편입 특화 컬리지를 추천합니다. UBC·SFU 인접 통학권 중심입니다."
-                : "※ 온타리오의 학위·편입 협정 중심 컬리지를 추천합니다. 토론토 광역권 중심입니다.";
+            noteRegion.innerText = isBC ? t('transferRegionBC') : t('transferRegionON');
             noteRegion.classList.remove('hidden');
 
             document.getElementById('university-grid').innerHTML = pickTransferColleges(p).map(collegeCard).join('');
 
             renderLangNotice(p, "transfer");
 
-            renderCommonBlocks("대학 편입", "편입");
+            renderCommonBlocks(t('majorTransfer'), t('routeTransfer'));
         }
 
         // ---------- 추천 국제 사립학교 (중·고 재학 결과 전용) ----------
@@ -1505,26 +1533,26 @@
                             <h4 class="sf-display-card-bold text-[#1d1d1f]">${s.name}</h4>
                             <span class="text-[11px] font-bold text-gray-400 bg-gray-100 rounded-full px-2.5 py-1 whitespace-nowrap mt-1">ON</span>
                         </div>
-                        <p class="text-xs text-apple-blue font-semibold mb-4 mt-2 uppercase tracking-wider">국제 사립학교 · ${s.city}</p>
-                        <p class="sf-text-caption text-gray-500 mb-6 font-semibold uppercase tracking-wide">${s.note}</p>
+                        <p class="text-xs text-apple-blue font-semibold mb-4 mt-2 uppercase tracking-wider">${t('privateType')(s.city)}</p>
+                        <p class="sf-text-caption text-gray-500 mb-6 font-semibold uppercase tracking-wide">${tr(s.note)}</p>
 
                         <div class="bg-[#fafafc] rounded-[8px] p-4 mb-8 space-y-3">
                             <div class="flex justify-between sf-text-caption border-b border-gray-100 pb-2">
-                                <span class="text-gray-500">추천 포인트</span>
-                                <strong class="text-[#1d1d1f] text-right w-2/3">${s.point}</strong>
+                                <span class="text-gray-500">${t('pointLabel')}</span>
+                                <strong class="text-[#1d1d1f] text-right w-2/3">${tr(s.point)}</strong>
                             </div>
                             <div class="flex justify-between sf-text-caption border-b border-gray-100 pb-2">
-                                <span class="text-gray-500">과정</span>
-                                <strong class="text-[#1d1d1f] text-right w-1/2">OSSD 취득 → 대학 직행</strong>
+                                <span class="text-gray-500">${t('programLabel')}</span>
+                                <strong class="text-[#1d1d1f] text-right w-1/2">${t('ossdRoute')}</strong>
                             </div>
                             <div class="flex justify-between sf-text-caption pt-1">
-                                <span class="text-gray-500">학비·입학 시기</span>
-                                <strong class="text-[#1d1d1f] text-orange-600">학교 공식 페이지 확인</strong>
+                                <span class="text-gray-500">${t('feeTimingLabel')}</span>
+                                <strong class="text-[#1d1d1f] text-orange-600">${t('checkSchoolPage')}</strong>
                             </div>
                         </div>
                     </div>
                     <a href="${OFFICIAL_LINKS.ontarioPrivate}" target="_blank" rel="noopener" class="apple-link-pill light-bg w-full text-center mt-auto">
-                        온타리오 사립학교 공식 안내 <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-2"></i>
+                        ${t('ontarioPrivateLink')} <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-2"></i>
                     </a>
                 </div>
             `;
@@ -1534,34 +1562,31 @@
         function generateOssdReport() {
             const p = userProfile;
 
-            document.getElementById('result-pathway-title').innerText = "국제 사립학교 → 대학 직행 경로 (OSSD)";
-            let desc = "중·고등학교 재학 중이라면 컬리지를 거치지 않고, 토론토의 국제 사립학교(BICC·TAIE·UMC 하이스쿨 등)에서 온타리오 고교 졸업장(OSSD)을 취득해 캐나다 대학 1학년으로 바로 진학하는 경로를 추천합니다. 12학년 내신(Top 6 과목)으로 토론토대·UBC 등 명문대에 지원하며, 학사 학위 취득 시 전공 제한 없이 취업허가(PGWP)가 가능합니다.";
+            document.getElementById('result-pathway-title').innerText = t('ossdTitle');
+            let desc = t('ossdDesc');
             if (p.english === "none" || p.english === "mid") {
-                desc += " 영어는 사립학교의 ESL 과정과 병행해 준비할 수 있어, 지금 공인 성적이 없어도 시작할 수 있습니다.";
+                desc += t('ossdEngNote');
             }
             document.getElementById('result-pathway-desc').innerText = desc;
 
             renderSummary([
-                ["Status", labelOf("b_status", p.status)],
-                ["Target", labelOf("b_region", p.bRegion)],
-                ["Field", labelOf("b_field", p.bField)],
-                ["English", labelOf("b_english", p.english)]
+                ["Status", tr(labelOf("b_status", p.status))],
+                ["Target", tr(labelOf("b_region", p.bRegion))],
+                ["Field", tr(labelOf("b_field", p.bField))],
+                ["English", tr(labelOf("b_english", p.english))]
             ]);
 
             // Major card: 대학 직행 안내
-            document.getElementById('rec-major-badge').innerHTML =
-                '<span class="region-badge"><i class="fa-solid fa-circle-check"></i> PGWP 가능 (학위 취득 시 전공 제한 없음)</span>';
-            const fieldLabel = labelOf("b_field", p.bField);
+            document.getElementById('rec-major-badge').innerHTML = t('degreeBadge');
+            const fieldLabel = tr(labelOf("b_field", p.bField));
             document.getElementById('rec-major-title').innerText =
-                (p.bField === "undecided" ? "전공 탐색형" : fieldLabel) + " · 대학 직행 트랙";
-            document.getElementById('rec-major-desc').innerText =
-                "국제 사립학교에서 " + (p.bField === "undecided" ? "적성에 맞는 12학년 과목을 탐색하며" : fieldLabel + " 관련 12학년 과목을 이수하며")
-                + " 온타리오 고교 졸업장(OSSD)을 취득하고, 12학년 내신으로 캐나다 대학 1학년에 직행 지원하는 경로입니다. 컬리지 편입 없이 대학으로 바로 이어지며, 학위 취득 시 전공과 무관하게 취업허가(PGWP)를 받을 수 있습니다.";
-            document.getElementById('rec-major-programs').innerHTML = [
-                "OSSD (온타리오 고교 졸업장)", "ESL + 12학년 정규 과목", "대학 1학년 직행 지원"
-            ].map(e => `<span class="track-chip"><i class="fa-solid fa-book-open"></i> ${e}</span>`).join('');
+                (p.bField === "undecided" ? t('fieldUndecided') : fieldLabel) + t('ossdTrackSuffix');
+            document.getElementById('rec-major-desc').innerText = t('ossdMajorDesc')(
+                p.bField === "undecided" ? t('ossdDescPartUndecided') : t('ossdDescPartField')(fieldLabel));
+            document.getElementById('rec-major-programs').innerHTML = t('ossdPrograms')
+                .map(e => `<span class="track-chip"><i class="fa-solid fa-book-open"></i> ${e}</span>`).join('');
             const noteEl = document.getElementById('rec-major-note');
-            noteEl.innerText = "※ 학교별 입학 시기·학비·기숙사는 각 학교 공식 페이지에서 확인하세요. 대학별 영어 요건(IELTS 등)은 별도 충족이 필요합니다.";
+            noteEl.innerText = t('ossdNote');
             noteEl.classList.remove('hidden');
             document.getElementById('rec-warning').classList.add('hidden');
 
@@ -1572,7 +1597,7 @@
             document.getElementById('colleges-section').classList.remove('hidden');
             document.getElementById('colleges-title').innerText = "Recommended Schools";
             const noteRegion = document.getElementById('region-note');
-            noteRegion.innerText = "※ 토론토 지역의 대표적인 국제 사립학교 예시입니다. 학생의 나이·성향·예산 등 상황에 따라 캐나다 공립 교육청 소속 학교의 관리형 유학도 대안이 될 수 있으니, 두 경로를 함께 비교해 보세요.";
+            noteRegion.innerText = t('ossdRegionNote');
             noteRegion.classList.remove('hidden');
             document.getElementById('university-grid').innerHTML = PRIVATE_SCHOOLS.map(privateSchoolCard).join('');
 
@@ -1581,17 +1606,16 @@
 
             renderLangNotice(p, "ossd");
 
-            renderCommonBlocks("국제 사립학교", "대학 직행");
+            renderCommonBlocks(t('majorPrivate'), t('routeUniDirect'));
         }
 
         // ---------- 공통 블록 (Resource Center / Next Steps) ----------
         function renderCommonBlocks(majorShort, routeShort) {
-            document.getElementById('board-section-title').innerText =
-                majorShort + " " + routeShort + " 진학, 다음 단계로 이어가세요";
+            document.getElementById('board-section-title').innerText = t('boardTitle')(majorShort, routeShort);
             const officialLinks = [
-                { url: OFFICIAL_LINKS.pgwp, icon: "fa-solid fa-briefcase", title: "졸업 후 취업허가(PGWP) 공식 안내 | 적격 전공 목록 확인 — IRCC" },
-                { url: OFFICIAL_LINKS.studyPermit, icon: "fa-solid fa-passport", title: "학업허가(Study Permit) 신청 공식 안내 — IRCC" },
-                { url: OFFICIAL_LINKS.educanada, icon: "fa-regular fa-file-lines", title: "EduCanada | 캐나다 정부 공식 유학 포털 (장학금·생활 정보)" }
+                { url: OFFICIAL_LINKS.pgwp, icon: "fa-solid fa-briefcase", title: t('officialPgwp') },
+                { url: OFFICIAL_LINKS.studyPermit, icon: "fa-solid fa-passport", title: t('officialStudyPermit') },
+                { url: OFFICIAL_LINKS.educanada, icon: "fa-regular fa-file-lines", title: t('officialEduCanada') }
             ];
             document.getElementById('board-articles').innerHTML = officialLinks.map(a => `
                 <a href="${a.url}" target="_blank"
@@ -1678,6 +1702,18 @@
             } else {
                 const q = Object.entries(fields).map(([k, v]) => k + '=' + encodeURIComponent(v)).join('&');
                 window.open('https://tally.so/r/' + TALLY_FORM_ID + '?' + q, '_blank', 'noopener');
+            }
+        }
+
+        /* 언어를 바꿨을 때 JS로 그려진 화면(질문·결과)을 현재 언어로 다시 그린다.
+           i18n.js의 applyLang()이 마지막에 호출한다. */
+        function refreshDynamicView() {
+            const resultOpen = !document.getElementById('result-hero').classList.contains('hidden');
+            const askingOpen = !document.getElementById('consulting-section').classList.contains('hidden');
+            if (resultOpen) {
+                generateReport();
+            } else if (askingOpen) {
+                renderQuestion();
             }
         }
 
