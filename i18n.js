@@ -178,7 +178,13 @@ const I18N = {
         policy3Head: "학위 과정은 전공 제한 없음",
         policy3Body: "— 학사·석·박사 학위 과정 졸업자는 전공과 무관하게 PGWP가 가능합니다(컬리지 학사 포함).",
         policyFoot: "※ 정책은 변동될 수 있으며, 최신 기준은 IRCC 공식 발표에서 확인하세요.",
-        policyFootLink: "IRCC 공식 발표"
+        policyFootLink: "IRCC 공식 발표",
+        hsIntro: "중·고등학교 재학 중이거나 고교 졸업 전(고3 포함)이라면 컬리지 편입 외에, 토론토의 국제 사립학교(BICC·TAIE·UMC 하이스쿨 등)에서 온타리오 고교 졸업장(OSSD)을 취득한 뒤 캐나다 대학에 바로 지원하는 경로도 선택할 수 있습니다.",
+        hsStep1: "국제 사립학교 편입 (중·고 재학생은 학년에 맞춰, 고3·고졸은 12학년으로 — ESL 병행 가능)",
+        hsStep2: "온타리오 고교 졸업장(OSSD) 취득 — 12학년 내신(Top 6 과목)으로 대학 지원",
+        hsStep3: "토론토대·UBC 등 대학 1학년 직행 → 학위 취득 시 PGWP 전공 제한 없음",
+        hsPros: "수능·한국 내신 부담 없이 현지 내신으로 명문대에 도전할 수 있고, 컬리지 편입 단계를 건너뜁니다.",
+        hsCaution: "입학 시기·이수 과목에 따라 기간이 달라지며, 대학별 영어 요건(IELTS 등)은 별도로 충족해야 합니다."
     },
 
     en: {
@@ -347,7 +353,13 @@ const I18N = {
         policy3Head: "Degrees carry no field restriction",
         policy3Body: "— Graduates of bachelor's, master's and doctoral programmes qualify regardless of field, including college bachelor's degrees.",
         policyFoot: "Policy can change. Confirm the current position in the official IRCC announcements.",
-        policyFootLink: "official IRCC announcements"
+        policyFootLink: "official IRCC announcements",
+        hsIntro: "If you are still at secondary school, or have not yet left it, there is an alternative to transferring through a college: study at an international private school in Toronto — BICC, TAIE or UMC High School, for example — earn the Ontario Secondary School Diploma, and apply directly to a Canadian university.",
+        hsStep1: "Join an international private school — at your current year group, or in grade 12 if you are finishing school, with ESL alongside if needed",
+        hsStep2: "Earn the Ontario Secondary School Diploma and apply on your grade 12 results (top six subjects)",
+        hsStep3: "Enter year 1 at a university such as Toronto or UBC — a degree carries no field restriction on the work permit",
+        hsPros: "You are assessed on Canadian school results rather than the Korean CSAT, and you skip the college transfer step altogether.",
+        hsCaution: "How long it takes depends on your intake date and the subjects you need, and university English requirements such as IELTS must be met separately."
     }
 };
 
