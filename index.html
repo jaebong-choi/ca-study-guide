@@ -307,6 +307,12 @@
          * 밝은 섹션(bg-apple-light)은 원래 밝으므로 건드리지 않고,
          * 어두운 영역(nav · bg-apple-black)만 밝게 뒤집는다.
          * ========================================================= */
+
+        /* 모바일 상단 내비 정리 — 브랜드 줄바꿈 방지, 영어일 때 우측 그룹 넘침 방지 */
+        @media (max-width: 560px) {
+          nav a[href*="study-guide-hub"] span { display: none; }
+          nav a[href*="study-guide-hub"] { padding-left: 10px; padding-right: 10px; }
+        }
         /* 여러 줄 문단의 줄 길이를 고르게 맞춘다. 가운데 정렬은 balance, 좌측 본문은 pretty. */
         .sf-display-hero, .sf-display-section, .sf-display-card,
         #question-text, #result-pathway-title { text-wrap: balance; }
@@ -425,7 +431,7 @@
 
     <nav class="fixed top-0 w-full z-50 apple-nav-glass h-12 flex items-center">
         <div class="max-w-[980px] mx-auto w-full px-4 flex justify-between items-center text-xs sf-text-caption text-gray-300">
-            <a href="#" class="hover:text-white transition flex items-center gap-2 text-white font-bold text-sm tracking-tight">
+            <a href="#" class="hover:text-white transition flex items-center gap-2 text-white font-bold text-sm tracking-tight whitespace-nowrap shrink-0">
                 <i class="fa-solid fa-map-location-dot text-[#FF7059]"></i> CA Study Guide
             </a>
             <div class="hidden md:flex space-x-8">
