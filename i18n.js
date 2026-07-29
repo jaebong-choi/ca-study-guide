@@ -152,7 +152,33 @@ const I18N = {
         footerLink3: "졸업 후 취업허가 (PGWP) 공식 안내",
         footerLink4: "BC Transfer Guide (편입 공식 시스템)",
         footerQuebec: "※ 본 가이드는 퀘벡(CEGEP) 컬리지 진학을 다루지 않습니다.",
-        footerCopy: "© CA Study Guide. 정보 제공 목적으로 제작된 페이지입니다."
+        footerCopy: "© CA Study Guide. 정보 제공 목적으로 제작된 페이지입니다.",
+
+        tuitionPending: "※ 학비는 각 학교의 공식 국제학생 학비 확정 후 반영 예정이며, 현재는 각 컬리지 공식 홈페이지에서 확인하세요.",
+        saveDesc: "진단 결과는 링크 하나에 담겨 있습니다. 복사해서 나에게 보내 두거나, 함께 고민하는 친구·가족과 공유하세요.",
+        nextSteps: [
+            ["프로그램 확정:", "관심 전공의 PGWP 적격 여부를 프로그램 단위(CIP 코드)로 확인하고 지원 프로그램을 확정하세요."],
+            ["서류·영어 준비:", "영문 졸업·성적 증명서와 IELTS 등 공인 영어 성적을 준비합니다. 조건부 입학(Conditional Offer)도 활용할 수 있습니다."],
+            ["학업허가 신청:", "입학허가서(LOA)와 주정부 승인서(PAL)를 갖춰 학업허가(Study Permit)를 신청하세요."]
+        ],
+        visaItem1Head: "학업허가 (Study Permit):",
+        visaItem1Body: "신청 요건·PAL·처리 기간은 IRCC 공식 안내에서 확인하세요.",
+        visaItem1Link: "IRCC 공식 안내",
+        visaItem2Head: "졸업 후 취업허가 (PGWP):",
+        visaItem2Body: "적격 전공 목록과 요건은 IRCC PGWP 공식 페이지가 유일한 기준입니다.",
+        visaItem2Link: "IRCC PGWP 공식 페이지",
+        visaItem3Head: "공식 유학 포털:",
+        visaItem3Body: "캐나다 정부가 운영하는 EduCanada에서 장학금·생활비 정보를 찾아보세요.",
+        policyTitle: "2026 캐나다 유학, 무엇이 달라졌나",
+        policySub: "캐나다 이민부(IRCC) 발표 기준, 컬리지 진학 전 반드시 알아야 할 세 가지 변화입니다.",
+        policy1Head: "학업허가 총량 제한",
+        policy1Body: "— 2026년 캐나다 전체 학업허가는 408,000건으로 제한되며, 컬리지 지원자는 주정부 승인서(PAL)가 필수입니다.",
+        policy2Head: "비학위 과정은 적격 전공만 PGWP 가능",
+        policy2Body: "— 디플로마 등 비학위 과정은 보건·교육·기술직·농업·STEM·운송 6개 섹터의 적격 전공만 졸업 후 취업허가를 받을 수 있습니다.",
+        policy3Head: "학위 과정은 전공 제한 없음",
+        policy3Body: "— 학사·석·박사 학위 과정 졸업자는 전공과 무관하게 PGWP가 가능합니다(컬리지 학사 포함).",
+        policyFoot: "※ 정책은 변동될 수 있으며, 최신 기준은 IRCC 공식 발표에서 확인하세요.",
+        policyFootLink: "IRCC 공식 발표"
     },
 
     en: {
@@ -295,7 +321,33 @@ const I18N = {
         footerLink3: "Post-graduation work permit — official guide",
         footerLink4: "BC Transfer Guide (the official transfer system)",
         footerQuebec: "This guide does not cover CEGEP study in Quebec.",
-        footerCopy: "© CA Study Guide. Published for information purposes."
+        footerCopy: "© CA Study Guide. Published for information purposes.",
+
+        tuitionPending: "Tuition will be updated once each institution confirms its official international rate. For now, check the college's own site.",
+        saveDesc: "Your result lives in a single link. Send it to yourself, or share it with family and friends who are helping you decide.",
+        nextSteps: [
+            ["Choose the programme:", "Check whether the programmes you are interested in qualify for the work permit, by CIP code, and settle on where to apply."],
+            ["Documents and English:", "Prepare your certificate and transcript in English along with an accepted English test result such as IELTS. A conditional offer is also an option."],
+            ["Apply for the study permit:", "With your letter of acceptance and provincial attestation letter in hand, apply for the study permit."]
+        ],
+        visaItem1Head: "Study permit:",
+        visaItem1Body: "Check the requirements, the provincial attestation letter and processing times on the IRCC site.",
+        visaItem1Link: "IRCC official guide",
+        visaItem2Head: "Post-graduation work permit:",
+        visaItem2Body: "The official IRCC page is the only authority on the eligible field list and the requirements.",
+        visaItem2Link: "IRCC work permit page",
+        visaItem3Head: "Official study portal:",
+        visaItem3Body: "EduCanada, run by the Canadian Government, covers scholarships and living costs.",
+        policyTitle: "What changed for 2026",
+        policySub: "Three changes announced by Immigration, Refugees and Citizenship Canada that you should know before applying to a college.",
+        policy1Head: "A cap on study permits",
+        policy1Body: "— Canada will issue no more than 408,000 study permits in 2026, and college applicants must hold a provincial attestation letter.",
+        policy2Head: "Non-degree programmes: only eligible fields qualify",
+        policy2Body: "— For diplomas and other non-degree programmes, only eligible fields within six sectors — health, education, trades, agriculture, STEM and transport — lead to a post-graduation work permit.",
+        policy3Head: "Degrees carry no field restriction",
+        policy3Body: "— Graduates of bachelor's, master's and doctoral programmes qualify regardless of field, including college bachelor's degrees.",
+        policyFoot: "Policy can change. Confirm the current position in the official IRCC announcements.",
+        policyFootLink: "official IRCC announcements"
     }
 };
 
