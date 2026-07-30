@@ -430,6 +430,26 @@
 
         html[data-theme="light"] .hero-glow { background: #f3b5a8 !important; opacity: 0.34; }
         html[data-theme="light"] .apple-link-pill { color: #B8321F; border-color: #B8321F; }
+
+        /* 추천 전공명 → 학교 공식 전공 페이지 링크 */
+        .major-link {
+            color: #FF7059;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            text-decoration-thickness: 1px;
+            text-decoration-color: rgba(255, 112, 89, 0.35);
+            white-space: nowrap;
+            transition: color 0.15s ease, text-decoration-color 0.15s ease;
+        }
+        .major-link:hover { text-decoration-color: currentColor; }
+        html[data-theme="light"] .major-link { color: #B8321F; text-decoration-color: rgba(184, 50, 31, 0.35); }
+        .major-link i {
+            font-size: 0.7em;
+            margin-left: 3px;
+            opacity: 0.55;
+            vertical-align: baseline;
+        }
+        .major-plain { color: inherit; }
     </style>
 </head>
 <body>
@@ -778,6 +798,200 @@
             pgwp: "https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/work/after-graduation.html",
             bcTransfer: "https://www.bctransferguide.ca/",
             ontarioPrivate: "https://www.ontario.ca/page/private-schools"
+        };
+
+        // ============================================================
+        // 컬리지별 · 추천 전공별 공식 학과(전공) 페이지 링크
+        // 키: 컬리지 name → rec_majors 항목(한국어 원문) → 각 학교 공식 사이트의
+        //     해당 전공 계열(School / Faculty / Area of Study) 페이지 URL
+        // 매핑이 없는 전공은 링크 없이 텍스트로만 표시된다.
+        // ============================================================
+        const PROGRAM_LINKS = {
+            // ---------- 온타리오 ----------
+            "Seneca Polytechnic": {
+                "IT·컴퓨터": "https://www.senecapolytechnic.ca/programs/byareaofstudy/information-technology.html",
+                "비즈니스": "https://www.senecapolytechnic.ca/programs/byareaofstudy/business.html",
+                "항공": "https://www.senecapolytechnic.ca/programs/byareaofstudy/aviation.html",
+                "보건": "https://www.senecapolytechnic.ca/programs/byareaofstudy/health-and-wellness.html"
+            },
+            "Humber Polytechnic": {
+                "미디어": "https://humber.ca/explore-programs/career-areas/film-media-production",
+                "비즈니스": "https://humber.ca/explore-programs/career-areas/business-management",
+                "보건": "https://humber.ca/explore-programs/career-areas/healthcare",
+                "호스피탈리티": "https://humber.ca/explore-programs/career-areas/hospitality-event-management"
+            },
+            "George Brown Polytechnic": {
+                "조리·제빵": "https://www.georgebrown.ca/hospitality-culinary-arts",
+                "디자인": "https://www.georgebrown.ca/arts-design-information-technology",
+                "비즈니스": "https://www.georgebrown.ca/business",
+                "보건": "https://www.georgebrown.ca/health-sciences"
+            },
+            "Centennial College": {
+                "자동차·운송": "https://www.centennialcollege.ca/about-centennial/schools/school-of-transportation/",
+                "항공정비": "https://www.centennialcollege.ca/about-centennial/schools/school-of-transportation/",
+                "IT": "https://www.centennialcollege.ca/about-centennial/schools/school-of-engineering-technology-and-applied-science/",
+                "보건": "https://www.centennialcollege.ca/about-centennial/schools/school-of-community-and-health-studies/"
+            },
+            "Sheridan College": {
+                "애니메이션": "https://www.sheridancollege.ca/about/faculties/animation-arts-design",
+                "디자인": "https://www.sheridancollege.ca/about/faculties/animation-arts-design",
+                "IT": "https://www.sheridancollege.ca/about/faculties/applied-science-technology"
+            },
+            "Conestoga College": {
+                "엔지니어링 테크": "https://www.conestogac.on.ca/engineering-and-technology",
+                "기술직(트레이드)": "https://www.conestogac.on.ca/trades-and-apprenticeship",
+                "IT": "https://www.conestogac.on.ca/applied-computer-science-and-information-technology",
+                "보건": "https://www.conestogac.on.ca/health-and-life-sciences"
+            },
+            "Fanshawe College": {
+                "보건": "https://www.fanshawec.ca/programs-and-courses/schools/health-sciences",
+                "기술직(트레이드)": "https://www.fanshawec.ca/programs-and-courses/programs-type/apprenticeship"
+            },
+            "Algonquin College": {
+                "IT·컴퓨터": "https://www.algonquincollege.com/sat/",
+                "보건": "https://www.algonquincollege.com/health-sciences/",
+                "미디어": "https://www.algonquincollege.com/mediaanddesign/"
+            },
+            "Niagara College": {
+                "조리·제빵": "https://www.niagaracollege.ca/culinaryarts/",
+                "와인·양조": "https://www.niagaracollege.ca/winebeerspirits/",
+                "호텔·관광": "https://www.niagaracollege.ca/hospitalityandtourism/"
+            },
+            "Mohawk College": {
+                "엔지니어링 테크": "https://www.mohawkcollege.ca/program-theme/technology",
+                "보건": "https://www.mohawkcollege.ca/program-theme/health",
+                "기술직(트레이드)": "https://www.mohawkcollege.ca/program-theme/skilled-trades-apprenticeship"
+            },
+            "Durham College": {
+                "IT·컴퓨터": "https://durhamcollege.ca/academic-faculties/faculty-of-business-and-information-technology",
+                "보건": "https://durhamcollege.ca/academic-faculties/faculty-of-health-sciences",
+                "기술직(트레이드)": "https://durhamcollege.ca/academic-faculties/faculty-of-skilled-trades-apprenticeship"
+            },
+            "Georgian College": {
+                "자동차": "https://www.georgiancollege.ca/academics/academic-areas/automotive-business/",
+                "비즈니스": "https://www.georgiancollege.ca/academics/academic-areas/business-and-management/",
+                "관광": "https://www.georgiancollege.ca/academics/academic-areas/hospitality-tourism-and-recreation/"
+            },
+            "St. Lawrence College": {
+                "보건": "https://www.stlawrencecollege.ca/programs/areas-of-study/health-sciences",
+                "비즈니스": "https://www.stlawrencecollege.ca/programs/areas-of-study/business"
+            },
+            "Fleming College": {
+                "환경·자원": "https://flemingcollege.ca/school/environmental-and-natural-resource-sciences",
+                "기술직(트레이드)": "https://flemingcollege.ca/school/trades-and-technology"
+            },
+            "Canadore College": {
+                "항공": "https://www.canadorecollege.ca/experience/experience-aviation"
+            },
+            "Confederation College": {
+                "항공": "https://www.confederationcollege.ca/programs-courses/aviation"
+            },
+            "Sault College": {
+                "항공": "https://www.saultcollege.ca/programs/categories/aviation"
+            },
+
+            // ---------- 브리티시컬럼비아 ----------
+            "BCIT": {
+                "IT·컴퓨터": "https://www.bcit.ca/study/computing-it/",
+                "엔지니어링 테크": "https://www.bcit.ca/study/engineering/",
+                "비즈니스 실무": "https://www.bcit.ca/study/business-media/"
+            },
+            "Langara College": {
+                "대학 편입": "https://langara.ca/why-langara/university-transfer",
+                "비즈니스": "https://langara.ca/departments/langara-school-of-management/index.html",
+                "IT": "https://langara.ca/departments/computer-science"
+            },
+            "Douglas College": {
+                "대학 편입": "https://www.douglascollege.ca/future-students/explore-douglas/ways-study/university-transfer",
+                "간호·보건": "https://www.douglascollege.ca/programs-courses/faculties/health-sciences/nursing",
+                "비즈니스": "https://www.douglascollege.ca/programs-courses/explore-programs-courses/faculties/commerce-and-business-administration"
+            },
+            "Vancouver Community College": {
+                "조리·제빵": "https://www.vcc.ca/programscourses/baking-and-culinary/",
+                "보건": "https://www.vcc.ca/programscourses/health-sciences/",
+                "실무 기술": "https://www.vcc.ca/programscourses/technology-and-electrical-trades/"
+            },
+            "Camosun College": {
+                "대학 편입": "https://camosun.ca/programs-courses/university-transfer",
+                "엔지니어링 테크": "https://camosun.ca/stem",
+                "보건": "https://camosun.ca/hshs/programs"
+            },
+            "Okanagan College": {
+                "비즈니스": "https://www.okanagancollege.ca/business",
+                "기술직(트레이드)": "https://www.okanagancollege.ca/trades-and-apprenticeship",
+                "보건": "https://www.okanagancollege.ca/health-and-social-development"
+            },
+
+            // ---------- 앨버타 ----------
+            "SAIT": {
+                "기술직(트레이드)": "https://www.sait.ca/sait-schools/school-of-construction/index",
+                "에너지": "https://www.sait.ca/sait-schools/macphail-school-of-energy/index",
+                "IT": "https://www.sait.ca/sait-schools/school-for-advanced-digital-technology/index",
+                "항공": "https://www.sait.ca/sait-schools/school-of-transportation/aviation-programs"
+            },
+            "NAIT": {
+                "기술직(트레이드)": "https://www.nait.ca/programs",
+                "엔지니어링 테크": "https://www.nait.ca/nait/schools-programs/school-of-manufacturing-automation",
+                "IT": "https://www.nait.ca/nait/schools-programs/school-of-media-and-information-technology",
+                "보건": "https://www.nait.ca/nait/schools-programs/school-of-health-and-sciences"
+            },
+            "Bow Valley College": {
+                "보건": "https://www.bowvalleycollege.ca/schools/school-of-health-and-wellness",
+                "비즈니스": "https://www.bowvalleycollege.ca/schools/chiu-school-of-business",
+                "IT": "https://www.bowvalleycollege.ca/schools/school-of-technology"
+            },
+            "NorQuest College": {
+                "유아교육": "https://www.norquest.ca/programs-and-courses/programs/early-learning-and-child-care/"
+            },
+            "Red Deer Polytechnic": {
+                "보건": "https://rdpolytech.ca/programs/health-sciences",
+                "기술직(트레이드)": "https://rdpolytech.ca/programs/trades-apprenticeships"
+            },
+            "Lethbridge Polytechnic": {
+                "농업": "https://lethpolytech.ca/programs-and-courses/areas-of-interest/agriculture",
+                "기술직(트레이드)": "https://lethpolytech.ca/programs-and-courses/trades"
+            },
+            "Olds College of Agriculture & Technology": {
+                "농업": "https://www.oldscollege.ca/programs/index.html",
+                "원예": "https://www.oldscollege.ca/programs/index.html"
+            },
+
+            // ---------- 프레리 ----------
+            "Red River College Polytechnic": {
+                "보건": "https://www.rrc.ca/explore/health-sciences/",
+                "IT": "https://www.rrc.ca/explore/information-technology/",
+                "기술직(트레이드)": "https://www.rrc.ca/explore/skilled-trades/"
+            },
+            "Assiniboine College": {
+                "농업": "https://assiniboine.net/programs/agriculture"
+            },
+            "Saskatchewan Polytechnic": {
+                "보건": "https://saskpolytech.ca/about/faculty-of-nursing-health-sciences-and-community-services/school-of-health-sciences/index.aspx",
+                "엔지니어링 테크": "https://saskpolytech.ca/about/faculty-of-technology-and-skilled-trades/school-of-mining-manufacturing-and-engineering-technologies/index.aspx",
+                "기술직(트레이드)": "https://saskpolytech.ca/about/faculty-of-technology-and-skilled-trades/school-of-construction/index.aspx"
+            },
+
+            // ---------- 애틀랜틱 ----------
+            "Nova Scotia Community College (NSCC)": {
+                "보건": "https://www.nscc.ca/programs-and-courses/programs/programs-by-area-of-interest/health-and-wellness-programs.aspx",
+                "IT": "https://www.nscc.ca/programs-and-courses/programs/programs-by-area-of-interest/it-data-analytics.aspx",
+                "해양": "https://www.nscc.ca/programs-and-courses/programs/programs-by-area-of-interest/marine.aspx"
+            },
+            "New Brunswick Community College (NBCC)": {
+                "보건": "https://www.nbcc.ca/schools/school-of-health-and-wellness",
+                "IT": "https://www.nbcc.ca/schools/school-of-information-technology",
+                "기술직(트레이드)": "https://www.nbcc.ca/schools/school-of-trades"
+            },
+            "Holland College": {
+                "조리(Culinary Institute of Canada)": "https://hollandcollege.com/academics/full-time-programs/culinary-arts/index.php",
+                "관광": "https://hollandcollege.com/academics/full-time-programs",
+                "보건": "https://hollandcollege.com/academics/full-time-programs"
+            },
+            "College of the North Atlantic (CNA)": {
+                "보건": "https://www.cna.nl.ca/programs-courses/school-of-health-sciences",
+                "엔지니어링 테크": "https://www.cna.nl.ca/programs-courses/school-of-engineering-technology",
+                "기술직(트레이드)": "https://www.cna.nl.ca/programs-courses/school-of-natural-resources-industrial-trades"
+            }
         };
 
         // ============================================================
@@ -1295,13 +1509,24 @@
             mostly_not_eligible: '<span class="region-badge badge-stop"><i class="fa-solid fa-circle-xmark"></i> PGWP 불가(비학위)</span>'
         };
 
+        // 추천 전공명 → 해당 학교의 공식 전공(계열) 페이지 링크
+        function majorLink(c) {
+            const map = PROGRAM_LINKS[c.name] || {};
+            return function (m) {
+                const url = map[m];
+                const label = tr(m);
+                if (!url) return `<span class="major-plain">${label}</span>`;
+                return `<a href="${url}" target="_blank" rel="noopener" class="major-link" title="${t('majorPageHint')(label)}">${label}<i class="fa-solid fa-arrow-up-right-from-square"></i></a>`;
+            };
+        }
+
         function collegeCard(c) {
             const region = REGIONS[c.regionId];
             const typeLabel = tr(TYPE_LABELS[c.type] || "컬리지");
             const tuition = c.tuition_intl === null ? t('checkOfficial') : c.tuition_intl;
             const subLine = c.strength ? t('strengthPrefix') + tr(c.strength)
                 : t('subLineTier')(tr(region.name_ko), tr(TIER_LABELS[c.market_tier] || "추천"));
-            const majors = (c.rec_majors && c.rec_majors.length) ? c.rec_majors.map(tr).join(" · ") : t('checkOfficial');
+            const majors = (c.rec_majors && c.rec_majors.length) ? c.rec_majors.map(majorLink(c)).join(" · ") : t('checkOfficial');
             const linkUrl = c.url || OFFICIAL_LINKS.educanada;
             const linkLabel = t('visitSite');
             return `
