@@ -64,7 +64,7 @@
         });
     </script>
 
-    <script src="i18n.js?v=20260807b"></script>
+    <script src="i18n.js?v=20260808"></script>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -647,7 +647,7 @@
                 </div>
             </div>
 
-            <!-- Pathway Guide (디플로마 직행 / 포스트그래듀에이트 / 대학 편입) -->
+            <!-- Pathway Guide (디플로마 직행 / 준석사 과정 / 대학 편입) -->
             <div class="mb-24" id="pathway-guide-section">
                 <h3 class="sf-display-section text-center mb-3" data-i18n="guideSectionTitle">캐나다 진학 경로 가이드</h3>
                 <p class="sf-text-body text-gray-500 text-center mb-12 max-w-2xl mx-auto" id="pathway-guide-sub" data-i18n="guideSectionSub">
@@ -1325,7 +1325,7 @@
         }
 
         // ============================================================
-        // 진학 경로 가이드 (디플로마 직행 / 포스트그래듀에이트 / 대학 편입)
+        // 진학 경로 가이드 (디플로마 직행 / 준석사 과정 / 대학 편입)
         // ============================================================
         const pathwayGuides = [
             {
@@ -1340,11 +1340,11 @@
             },
             {
                 key: "postgrad",
-                title: "포스트그래듀에이트",
+                title: "준석사 과정",
                 en: "Post-Graduate Certificate (1~2년)",
                 icon: "fa-user-tie",
                 target: "국내 대학 졸업자·직장인. 보유한 학사 학위 위에 1~2년 실무 과정을 더해 커리어를 전환하는 경로입니다.",
-                steps: ["학사 학위로 포스트그래듀에이트 과정 지원", "1~2년 이수 (실무·인턴십 중심) → PGWP(적격 전공)", "현지 취업 → 경력 기반 이민 검토"],
+                steps: ["학사 학위로 준석사 과정 지원", "1~2년 이수 (실무·인턴십 중심) → PGWP(적격 전공)", "현지 취업 → 경력 기반 이민 검토"],
                 pros: "기간이 짧아 비용 부담이 적고, 기존 학위·경력과 결합해 취업 경쟁력을 높일 수 있습니다.",
                 caution: "서티피킷도 비학위 과정이므로 PGWP 전공 제한이 동일하게 적용됩니다."
             },
@@ -1417,7 +1417,7 @@
             if (p.majorCat && p.majorCat !== "unsure") return { id: p.majorCat, autoNote: null };
             if (p.goal === "settle") {
                 if (p.status === "uni_grad" || p.status === "worker") {
-                    return { id: "health", autoNote: "전공을 아직 정하지 않으셨다면, 대졸·경력자에게는 1~2년 포스트그래듀에이트로 진입할 수 있는 보건·IT 분야를 우선 추천합니다." };
+                    return { id: "health", autoNote: "전공을 아직 정하지 않으셨다면, 대졸·경력자에게는 1~2년 준석사 과정으로 진입할 수 있는 보건·IT 분야를 우선 추천합니다." };
                 }
                 return { id: "trades", autoNote: "전공을 아직 정하지 않으셨다면, 취업·이민 목표에는 기술직(트레이드)·보건 디플로마가 가장 확실한 선택지입니다." };
             }

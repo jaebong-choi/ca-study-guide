@@ -54,14 +54,14 @@ const I18N = {
         /* 트랙 A: 커리어·이민 */
         careerTitleBlocked: (m) => `${m} 경로, 재설계가 필요합니다`,
         careerDescBlocked: (m) => `선택하신 ${m} 분야의 컬리지 디플로마는 2026년 기준 졸업 후 취업허가(PGWP) 대상이 아닙니다. 하지만 경로를 바꾸면 목표는 유효합니다. 아래 추천 전공 카드에서 대안 경로를 확인해 주세요.`,
-        careerTitle: (m, post) => m + (post ? " 포스트그래듀에이트 경로" : " 커리어·이민 경로"),
+        careerTitle: (m, post) => m + (post ? " 준석사 경로" : " 커리어·이민 경로"),
         careerDescBase: (m, sector) => `${m} 분야는 2026년 기준 비학위 과정 PGWP 적격 섹터(${sector})에 해당합니다. `,
-        careerDescPostgrad: "보유하신 학사 학위 위에 1~2년 포스트그래듀에이트 과정을 더해 취업허가와 현지 커리어로 연결하는 경로를 추천합니다.",
+        careerDescPostgrad: "보유하신 학사 학위 위에 1~2년 준석사 과정을 더해 취업허가와 현지 커리어로 연결하는 경로를 추천합니다.",
         careerDescDiploma: "공립 컬리지 디플로마 2년 → 취업허가(PGWP) 최대 3년 → 경력 12개월 → 이민 검토로 이어지는 경로를 추천합니다.",
         careerDescConditional: " 다만 이 분야는 프로그램별로 적격 여부가 갈리는 조건부 분야이므로, 지원 전 CIP 코드 확인이 꼭 필요합니다.",
         engShortNote: " 공인 영어 성적이 아직 부족하다면, 어학연수·패스웨이 과정을 병행해 입학 요건을 맞출 수 있습니다.",
         summaryUndecided: (m) => `미정 → ${m}`,
-        recTitleSuffixPost: " · 포스트그래듀에이트",
+        recTitleSuffixPost: " · 준석사 과정",
         recTitleSuffixDiploma: " · 디플로마 과정",
         recDescCommon: "대표 프로그램은 아래와 같으며, 실제 지원 전에는 프로그램 단위(CIP 코드)로 PGWP 적격 여부를 IRCC 공식 목록에서 확인하세요.",
         noteConditional: (c) => `⚠ 조건부 분야: ${c}`,
@@ -71,7 +71,7 @@ const I18N = {
         warnAltDefault: "학위 과정 또는 대학 편입 트랙으로 우회를 검토해 보세요.",
         altBtn: (name) => `인접 적격 전공 보기 — ${name}`,
         regionNote: (regions, tags) => `※ 진단 결과, ${regions} 권역을 우선 추천합니다. (${tags})`,
-        routePostgrad: "포스트그래듀에이트",
+        routePostgrad: "준석사 과정",
         routeDiploma: "디플로마",
 
         /* 트랙 B: 대학 편입 */
@@ -535,11 +535,11 @@ const DATA_EN = {
         "Tuition is lower than at a university and the teaching is practical, so the step into work is quicker. If your field qualifies, you can work for up to three years after graduating.",
     "비학위 과정은 적격 전공(6개 섹터)만 PGWP가 가능합니다. 전공별 CIP 코드 확인이 필수입니다.":
         "For non-degree programmes only six eligible sectors qualify for the work permit. Always check the programme's CIP code.",
-    "포스트그래듀에이트": "Post-graduate certificate",
+    "준석사 과정": "Post-graduate certificate",
     "Post-Graduate Certificate (1~2년)": "Post-graduate certificate (1–2 years)",
     "국내 대학 졸업자·직장인. 보유한 학사 학위 위에 1~2년 실무 과정을 더해 커리어를 전환하는 경로입니다.":
         "you already hold a degree or have work experience. Adding a one- or two-year applied programme on top lets you change direction.",
-    "학사 학위로 포스트그래듀에이트 과정 지원": "Apply for a post-graduate certificate with your existing degree",
+    "학사 학위로 준석사 과정 지원": "Apply for a post-graduate certificate with your existing degree",
     "1~2년 이수 (실무·인턴십 중심) → PGWP(적격 전공)": "Complete one to two years of applied study and placements, then the work permit if your field qualifies",
     "현지 취업 → 경력 기반 이민 검토": "Move into work in Canada, then apply through an experience-based immigration stream",
     "기간이 짧아 비용 부담이 적고, 기존 학위·경력과 결합해 취업 경쟁력을 높일 수 있습니다.":
@@ -566,7 +566,7 @@ const DATA_EN = {
     "유연한 입학 시기와 단계별 영어 지원": "Flexible start dates and staged English support",
 
     /* --- 전공 미정 시 자동 배정 안내 --- */
-    "전공을 아직 정하지 않으셨다면, 대졸·경력자에게는 1~2년 포스트그래듀에이트로 진입할 수 있는 보건·IT 분야를 우선 추천합니다.":
+    "전공을 아직 정하지 않으셨다면, 대졸·경력자에게는 1~2년 준석사 과정으로 진입할 수 있는 보건·IT 분야를 우선 추천합니다.":
         "If you have not settled on a field yet, health and IT are the strongest starting points for graduates and people already working, since both can be entered through a one- to two-year post-graduate certificate.",
     "전공을 아직 정하지 않으셨다면, 취업·이민 목표에는 기술직(트레이드)·보건 디플로마가 가장 확실한 선택지입니다.":
         "If you have not settled on a field yet, a diploma in the skilled trades or health is the surest choice when work and immigration are the goal.",
