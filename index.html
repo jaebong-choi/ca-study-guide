@@ -670,8 +670,35 @@
                     <!-- College Cards Injected Here -->
                 </div>
                 <p class="sf-text-caption text-gray-400 text-center mb-4" data-i18n="tuitionPending">
-                    ※ 학비는 각 학교의 <strong class="text-gray-500">공식 국제학생 학비 확정 후 반영 예정</strong>이며, 현재는 각 컬리지 공식 홈페이지에서 확인하세요.
+                    ※ 캐나다 컬리지는 학비를 학교 단위로 공시하지 않고 <strong class="text-gray-500">프로그램별로 조회</strong>하는 방식이라, 카드에는 금액을 넣지 않았습니다. 아래 표에서 경로별 수준을 확인하고 정확한 금액은 각 컬리지 공식 페이지에서 보세요.
                 </p>
+
+                <!-- 학비·생활비 — 허브 guide/ca.html과 같은 수치를 쓴다.
+                     생활비는 실제 지출 추정이 아니라 스터디 퍼밋에서 증빙하도록 정한 기준액이다. -->
+                <div class="max-w-3xl mx-auto mb-10">
+                    <h4 class="sf-display-card-bold text-center mb-2" data-i18n="costTitle">학비와 생활비</h4>
+                    <p class="sf-text-caption text-gray-400 text-center mb-6" data-i18n="costSub">원화는 조회 시점 환율로 함께 보여드립니다.</p>
+                    <div class="apple-card overflow-hidden">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="border-b border-gray-200">
+                                    <th class="py-3 px-5 text-[12px] font-semibold text-gray-400" data-i18n="costColItem">구분</th>
+                                    <th class="py-3 px-2 text-[12px] font-semibold text-gray-400" data-i18n="costColRange">연간 금액</th>
+                                    <th class="py-3 px-5 text-[12px] font-semibold text-gray-400 hidden sm:table-cell" data-i18n="costColNote">비고</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-[14px]">
+                                <tr class="border-b border-gray-100"><td class="py-3 px-5 font-semibold text-[#1d1d1f]" data-i18n="costHs">국제 사립고 (OSSD)</td><td class="py-3 px-2 font-bold text-[#1d1d1f] whitespace-nowrap">C$15,000 ~ C$25,000<span class="krw block font-medium text-[12px] text-gray-400 mt-0.5" data-min="15000" data-max="25000"></span></td><td class="py-3 px-5 text-gray-400 text-[13px] hidden sm:table-cell" data-i18n="costHsNote">기숙·홈스테이 별도</td></tr>
+                                <tr class="border-b border-gray-100"><td class="py-3 px-5 font-semibold text-[#1d1d1f]" data-i18n="costCollege">공립 컬리지</td><td class="py-3 px-2 font-bold text-[#1d1d1f] whitespace-nowrap">C$15,000 ~ C$23,000<span class="krw block font-medium text-[12px] text-gray-400 mt-0.5" data-min="15000" data-max="23000"></span></td><td class="py-3 px-5 text-gray-400 text-[13px] hidden sm:table-cell" data-i18n="costCollegeNote">코업은 대개 유급</td></tr>
+                                <tr class="border-b border-gray-100"><td class="py-3 px-5 font-semibold text-[#1d1d1f]" data-i18n="costUni">4년제 대학</td><td class="py-3 px-2 font-bold text-[#1d1d1f] whitespace-nowrap">C$30,000 ~ C$70,000<span class="krw block font-medium text-[12px] text-gray-400 mt-0.5" data-min="30000" data-max="70000"></span></td><td class="py-3 px-5 text-gray-400 text-[13px] hidden sm:table-cell" data-i18n="costUniNote">UofT 공학이 상단</td></tr>
+                                <tr class="border-b border-gray-100"><td class="py-3 px-5 font-semibold text-[#1d1d1f]" data-i18n="costLiving">생활비</td><td class="py-3 px-2 font-bold text-[#1d1d1f] whitespace-nowrap">C$22,895<span class="krw block font-medium text-[12px] text-gray-400 mt-0.5" data-min="22895" data-max="22895"></span></td><td class="py-3 px-5 text-gray-400 text-[13px] hidden sm:table-cell" data-i18n="costLivingNote">스터디 퍼밋 증빙 기준액</td></tr>
+                                <tr><td class="py-3 px-5 font-semibold text-[#1d1d1f]" data-i18n="costIns">의료보험</td><td class="py-3 px-2 font-bold text-[#1d1d1f] whitespace-nowrap">C$600 ~ C$1,000<span class="krw block font-medium text-[12px] text-gray-400 mt-0.5" data-min="600" data-max="1000"></span></td><td class="py-3 px-5 text-gray-400 text-[13px] hidden sm:table-cell" data-i18n="costInsNote">주 보험 또는 사보험</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="fx-date sf-text-caption text-gray-400 text-center mt-3"></p>
+                    <p class="sf-text-caption text-gray-400 text-center mt-2 leading-relaxed" data-i18n="costFoot">※ 생활비는 실제 지출 추정이 아니라 스터디 퍼밋에서 증빙하도록 정한 기준액입니다. 토론토·밴쿠버 실제 생활비는 대개 이보다 높습니다.</p>
+                </div>
                 <p class="sf-text-caption text-gray-400 text-center mb-24" data-i18n="policyNote">
                     ※ 본 안내는 2026년 IRCC 발표 기준이며 정책은 변동될 수 있습니다. 결과는 안내용이며, 프로그램별 최종 적격 여부(CIP 코드)와 최신 학비는 각 컬리지 공식 페이지와 IRCC 공식 안내에서 확인하세요.
                 </p>
@@ -1974,6 +2001,44 @@
         window.addEventListener('hashchange', () => {
             if (location.hash.startsWith('#r=')) location.reload();
         });
+
+        /* 원화 환산 — 비용표의 캐나다달러 금액 밑에 조회 시점 환율로 환산해 표시한다.
+           비용표는 정적 마크업이라 환율이 도착하면 한 번만 채우면 된다.
+           언어를 바꿀 때도 다시 그려야 하므로 refreshDynamicView에서 함께 호출한다.
+           환율을 못 받으면 조용히 생략하고 캐나다달러 금액만 남는다. (허브 uni 페이지와 같은 방식) */
+        var FX_RATE = null;
+        function renderKrw() {
+            if (!FX_RATE) return;
+            var en = LANG === 'en';
+            function fmt(v) {
+                var man = Math.round(v * FX_RATE / 10000);
+                if (en) return '₩' + (man * 10000).toLocaleString('en-US');
+                if (man >= 10000) {
+                    var eok = Math.floor(man / 10000), rest = man % 10000;
+                    return eok + '억' + (rest ? ' ' + rest.toLocaleString('ko-KR') + '만' : '') + ' 원';
+                }
+                return man.toLocaleString('ko-KR') + '만 원';
+            }
+            document.querySelectorAll('.krw').forEach(function (el) {
+                var min = parseFloat(el.getAttribute('data-min'));
+                var max = parseFloat(el.getAttribute('data-max'));
+                if (isNaN(min) && isNaN(max)) return;
+                if (isNaN(min)) min = max;
+                if (isNaN(max)) max = min;
+                var range = min === max ? fmt(min) : (en ? fmt(min) + ' ~ ' + fmt(max) : fmt(min).replace(' 원', '') + '~' + fmt(max));
+                el.textContent = (en ? 'approx. ' : '약 ') + range;
+            });
+            var today = new Date();
+            document.querySelectorAll('.fx-date').forEach(function (el) {
+                el.textContent = en
+                    ? 'KRW amounts converted at the rate as of ' + today.toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' })
+                    : '원화는 ' + today.getFullYear() + '. ' + (today.getMonth() + 1) + '. ' + today.getDate() + '. 환율로 환산한 참고 값입니다.';
+            });
+        }
+        fetch('https://open.er-api.com/v6/latest/CAD')
+            .then(function (r) { return r.json(); })
+            .then(function (d) { FX_RATE = d && d.rates && d.rates.KRW; renderKrw(); })
+            .catch(function () {});
     </script>
 </body>
 </html>

@@ -155,7 +155,23 @@ const I18N = {
         footerQuebec: "※ 본 가이드는 퀘벡(CEGEP) 컬리지 진학을 다루지 않습니다.",
         footerCopy: "© CA Study Guide. 정보 제공 목적으로 제작된 페이지입니다.",
 
-        tuitionPending: "※ 학비는 각 학교의 공식 국제학생 학비 확정 후 반영 예정이며, 현재는 각 컬리지 공식 홈페이지에서 확인하세요.",
+        tuitionPending: "※ 캐나다 컬리지는 학비를 학교 단위로 공시하지 않고 프로그램별로 조회하는 방식이라, 카드에는 금액을 넣지 않았습니다. 아래 표에서 경로별 수준을 확인하고 정확한 금액은 각 컬리지 공식 페이지에서 보세요.",
+    costTitle: "학비와 생활비",
+    costSub: "원화는 조회 시점 환율로 함께 보여드립니다.",
+    costColItem: "구분",
+    costColRange: "연간 금액",
+    costColNote: "비고",
+    costHs: "국제 사립고 (OSSD)",
+    costHsNote: "기숙·홈스테이 별도",
+    costCollege: "공립 컬리지",
+    costCollegeNote: "코업은 대개 유급",
+    costUni: "4년제 대학",
+    costUniNote: "UofT 공학이 상단",
+    costLiving: "생활비",
+    costLivingNote: "스터디 퍼밋 증빙 기준액",
+    costIns: "의료보험",
+    costInsNote: "주 보험 또는 사보험",
+    costFoot: "※ 생활비는 실제 지출 추정이 아니라 스터디 퍼밋에서 증빙하도록 정한 기준액입니다. 토론토·밴쿠버 실제 생활비는 대개 이보다 높습니다.",
         saveDesc: "진단 결과는 링크 하나에 담겨 있습니다. 복사해서 나에게 보내 두거나, 함께 고민하는 친구·가족과 공유하세요.",
         nextSteps: [
             ["프로그램 확정:", "관심 전공의 PGWP 적격 여부를 프로그램 단위(CIP 코드)로 확인하고 지원 프로그램을 확정하세요."],
@@ -331,7 +347,23 @@ const I18N = {
         footerQuebec: "This guide does not cover CEGEP study in Quebec.",
         footerCopy: "© CA Study Guide. Published for information purposes.",
 
-        tuitionPending: "Tuition will be updated once each institution confirms its official international rate. For now, check the college's own site.",
+        costTitle: "Tuition and living costs",
+    costSub: "Won amounts are converted at today's rate.",
+    costColItem: "Item",
+    costColRange: "Per year",
+    costColNote: "Notes",
+    costHs: "Private high school (OSSD)",
+    costHsNote: "Boarding or homestay on top",
+    costCollege: "Public college",
+    costCollegeNote: "Co-op terms are usually paid",
+    costUni: "University",
+    costUniNote: "UofT engineering sits at the top",
+    costLiving: "Living costs",
+    costLivingNote: "Study permit proof-of-funds figure",
+    costIns: "Health insurance",
+    costInsNote: "Provincial plan or private cover",
+    costFoot: "The living figure is not a spending estimate: it is the amount a study permit requires you to show. Actual costs in Toronto and Vancouver usually run higher.",
+    tuitionPending: "Canadian colleges price by programme rather than publishing one rate per institution, so the cards carry no figure. Use the table below for the level to expect, and the college's own site for the exact amount.",
         saveDesc: "Your result lives in a single link. Send it to yourself, or share it with family and friends who are helping you decide.",
         nextSteps: [
             ["Choose the programme:", "Check whether the programmes you are interested in qualify for the work permit, by CIP code, and settle on where to apply."],
@@ -637,6 +669,8 @@ function applyLang() {
 
     if (typeof syncThemeLabel === "function") syncThemeLabel();
     if (typeof refreshDynamicView === "function") refreshDynamicView();
+    // 원화 표기는 언어별로 형식이 달라 언어를 바꿀 때 다시 그린다
+    if (typeof renderKrw === "function") renderKrw();
 }
 
 function setLang(l) {
