@@ -37,7 +37,7 @@ const I18N = {
         strengthPrefix: "강점: ",
         collegeLabel: "컬리지",
         tuitionLabel: "연간 학비",
-        tuitionNote: "(2026 국제학생)",
+        tuitionNote: "(국제학생 · 전공별 상이)",
         majorsLabel: "추천 전공",
         regionLabel: "권역",
         subLineTier: (region, tier) => `${region} ${tier} 컬리지`,
@@ -155,7 +155,7 @@ const I18N = {
         footerQuebec: "※ 본 가이드는 퀘벡(CEGEP) 컬리지 진학을 다루지 않습니다.",
         footerCopy: "© CA Study Guide. 정보 제공 목적으로 제작된 페이지입니다.",
 
-        tuitionPending: "※ 캐나다 컬리지는 학비를 학교 단위로 공시하지 않고 프로그램별로 조회하는 방식이라, 카드에는 금액을 넣지 않았습니다. 아래 표에서 경로별 수준을 확인하고 정확한 금액은 각 컬리지 공식 페이지에서 보세요.",
+        tuitionPending: "※ 표기된 학비는 모두 국제학생 기준이며, 같은 학교라도 전공에 따라 차이가 있습니다. 금액이 없는 학교는 학교 단위로 공시하지 않고 프로그램별로만 조회할 수 있는 곳이라, 각 컬리지 공식 페이지에서 확인하세요.",
     costTitle: "학비와 생활비",
     costSub: "원화는 조회 시점 환율로 함께 보여드립니다.",
     costColItem: "구분",
@@ -171,7 +171,7 @@ const I18N = {
     costLivingNote: "스터디 퍼밋 증빙 기준액",
     costIns: "의료보험",
     costInsNote: "주 보험 또는 사보험",
-    costFoot: "※ 생활비는 실제 지출 추정이 아니라 스터디 퍼밋에서 증빙하도록 정한 기준액입니다. 토론토·밴쿠버 실제 생활비는 대개 이보다 높습니다.",
+    costFoot: "※ 학비는 모두 국제학생 기준이며 전공에 따라 차이가 있습니다. 생활비는 실제 지출 추정이 아니라 스터디 퍼밋에서 증빙하도록 정한 기준액이라, 토론토·밴쿠버 실제 생활비는 대개 이보다 높습니다.",
         saveDesc: "진단 결과는 링크 하나에 담겨 있습니다. 복사해서 나에게 보내 두거나, 함께 고민하는 친구·가족과 공유하세요.",
         nextSteps: [
             ["프로그램 확정:", "관심 전공의 PGWP 적격 여부를 프로그램 단위(CIP 코드)로 확인하고 지원 프로그램을 확정하세요."],
@@ -229,7 +229,7 @@ const I18N = {
         strengthPrefix: "Strength: ",
         collegeLabel: "College",
         tuitionLabel: "Annual tuition",
-        tuitionNote: "(2026, international)",
+        tuitionNote: "(international, varies by programme)",
         majorsLabel: "Recommended fields",
         regionLabel: "Region",
         subLineTier: (region, tier) => `${region} · ${tier}`,
@@ -362,8 +362,8 @@ const I18N = {
     costLivingNote: "Study permit proof-of-funds figure",
     costIns: "Health insurance",
     costInsNote: "Provincial plan or private cover",
-    costFoot: "The living figure is not a spending estimate: it is the amount a study permit requires you to show. Actual costs in Toronto and Vancouver usually run higher.",
-    tuitionPending: "Canadian colleges price by programme rather than publishing one rate per institution, so the cards carry no figure. Use the table below for the level to expect, and the college's own site for the exact amount.",
+    costFoot: "All tuition is the international rate and varies by programme. The living figure is not a spending estimate: it is the amount a study permit requires you to show, and actual costs in Toronto and Vancouver usually run higher.",
+    tuitionPending: "All tuition shown is the international rate, and it varies by programme even within one college. Where no figure appears, the college prices by programme rather than publishing an institutional rate, so check its own site.",
         saveDesc: "Your result lives in a single link. Send it to yourself, or share it with family and friends who are helping you decide.",
         nextSteps: [
             ["Choose the programme:", "Check whether the programmes you are interested in qualify for the work permit, by CIP code, and settle on where to apply."],
@@ -669,7 +669,8 @@ function applyLang() {
 
     if (typeof syncThemeLabel === "function") syncThemeLabel();
     if (typeof refreshDynamicView === "function") refreshDynamicView();
-    // 원화 표기는 언어별로 형식이 달라 언어를 바꿀 때 다시 그린다
+    // 원화 표기는 언어별로 형식이 달라 언어를 바꿀 때 다시 그린다.
+    // 컬리지 카드는 refreshDynamicView가 다시 그리므로 그 뒤에 호출해야 한다.
     if (typeof renderKrw === "function") renderKrw();
 }
 
