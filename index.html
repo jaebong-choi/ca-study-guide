@@ -426,6 +426,29 @@
         html[data-theme="light"] .bg-apple-black .border-\[\#26262a\] { border-color: #d2d2d7 !important; }
         html[data-theme="light"] .bg-apple-black .border-\[\#3a3a3c\] { border-color: #d2d2d7 !important; }
         html[data-theme="light"] .bg-apple-black .bg-\[\#1d1d1f\] { background-color: #f5f5f7 !important; }
+        /* info-banner는 배경이 #272729로 고정이라 라이트 모드에서 어두운 채로 남는다.
+           그 안의 글자는 .bg-apple-black 하위 규칙으로 어둡게 뒤집히므로 둘이 겹쳐 안 읽힌다.
+           배경도 함께 밝게 돌려 대비를 되살린다. */
+        html[data-theme="light"] .info-banner {
+            background-color: #f5f5f7;
+            border: 1px solid #d2d2d7;
+        }
+        /* 밝아진 info-banner 안에서는 내부 카드가 흰색이어야 층이 구분된다 */
+        html[data-theme="light"] .info-banner .bg-\[\#1d1d1f\] {
+            background-color: #ffffff !important;
+            border-color: #d2d2d7 !important;
+        }
+        /* 이 배너가 .bg-apple-black 밖에 놓이면 위쪽 텍스트 반전 규칙이 닿지 않는다.
+           배너 자체에도 규칙을 걸어 두어 어디에 놓이든 글자가 배경을 따라가게 한다. */
+        html[data-theme="light"] .info-banner .text-white { color: #1d1d1f !important; }
+        html[data-theme="light"] .info-banner .text-gray-200,
+        html[data-theme="light"] .info-banner .text-gray-300,
+        html[data-theme="light"] .info-banner .text-gray-400 { color: #4a4a4f !important; }
+        /* 밝은 배경에서 #FF7059는 대비가 2.5:1까지 떨어진다.
+           사이트가 이미 링크·전공명에 쓰는 진한 주황(#B8321F)으로 맞춘다. */
+        html[data-theme="light"] .info-banner .text-\[\#FF7059\] { color: #B8321F !important; }
+        /* 다크에서 gray-500은 #272729 위에서 3.08:1이라 각주가 읽히지 않는다 */
+        .info-banner .text-gray-500 { color: #a1a1a6; }
         html[data-theme="light"] .border-white\/10 { border-color: rgba(0, 0, 0, 0.1) !important; }
 
         html[data-theme="light"] .degree-card {
