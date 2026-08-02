@@ -219,6 +219,15 @@
         .apple-link-pill:hover { background-color: rgba(255, 112, 89, 0.1); text-decoration: underline; }
         .apple-link-pill.light-bg { color: #B8321F; border-color: #B8321F; }
         .apple-link-pill.light-bg:hover { background-color: rgba(184, 50, 31, 0.1); }
+        /* 허브 상세 페이지 버튼 — 공식 사이트 링크와 구분되게 채운다 */
+        .apple-link-pill.is-primary,
+        .apple-link-pill.is-primary.light-bg {
+            background-color: #0066cc;
+            border-color: #0066cc;
+            color: #fff;
+        }
+        .apple-link-pill.is-primary:hover,
+        .apple-link-pill.is-primary.light-bg:hover { background-color: #0055aa; text-decoration: none; }
 
         /* Questionnaire Options */
         .option-card {
@@ -1585,11 +1594,34 @@
                             </div>
                         </div>
                     </div>
-                    <a href="${linkUrl}" target="_blank" class="apple-link-pill light-bg w-full text-center mt-auto">
-                        ${linkLabel} <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-2"></i>
-                    </a>
+                    <div class="flex flex-col gap-2 mt-auto">
+                        <a href="${linkUrl}" target="_blank" class="apple-link-pill light-bg w-full text-center">
+                            ${linkLabel} <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-2"></i>
+                        </a>
+                        ${hubUniUrl(c.name) ? `<a href="${hubUniUrl(c.name)}" target="_blank" rel="noopener" class="apple-link-pill light-bg is-primary w-full text-center">
+                            ${t('hubDetail')} <i class="fa-solid fa-table-list text-xs ml-2"></i>
+                        </a>` : ''}
+                    </div>
                 </div>
             `;
+        }
+
+        /* 허브 상세 페이지 연결 — 허브에 페이지가 있는 학교만 버튼을 만든다.
+           진단 카드의 이름과 허브 id를 잇는다. 허브에 없는 학교는 버튼 자체를 만들지 않는다. */
+        const HUB_BASE = 'https://jaebong-choi.github.io/study-guide-hub';
+        const HUB_UNI = {
+            "Seneca Polytechnic": "ca-seneca",
+            "Humber Polytechnic": "ca-humber",
+            "George Brown Polytechnic": "ca-george-brown",
+            "Centennial College": "ca-centennial",
+            "Sheridan College": "ca-sheridan",
+            "Fanshawe College": "ca-fanshawe",
+            "Niagara College": "ca-niagara",
+            "Vancouver Community College": "ca-vcc"
+        };
+        function hubUniUrl(name) {
+            const id = HUB_UNI[name];
+            return id ? `${HUB_BASE}/uni/${id}.html` : null;
         }
 
         function renderSummary(items) {
