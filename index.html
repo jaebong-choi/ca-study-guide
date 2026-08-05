@@ -484,6 +484,10 @@
         #result-details .text-gray-500, #consulting-section .text-gray-500 { color: #a1a1a6 !important; }
         #result-details .border-gray-100, #result-details .border-gray-200,
         #consulting-section .border-gray-100, #consulting-section .border-gray-200 { border-color: #3a3a3c !important; }
+        /* JS로 그리는 학교 카드 안쪽 면 — 퀴즈를 돌려야 나오므로 처음 스캔에서 놓쳤다 */
+        #result-details .bg-\[\#fafafc\], #consulting-section .bg-\[\#fafafc\] { background-color: #2c2c2e !important; }
+        #result-details .bg-gray-100, #consulting-section .bg-gray-100 { background-color: #3a3a3c !important; }
+        #result-details .text-orange-600 { color: #fdba74 !important; }
         /* 배지는 어두운 배경에서 대비가 죽는다. 글자만 밝은 쪽으로 올린다 */
         #result-details .region-badge, #consulting-section .region-badge { color: #4ade80; }
         #result-details .region-badge.badge-warn, #consulting-section .region-badge.badge-warn { color: #fbbf24; }
@@ -511,6 +515,11 @@
         html[data-theme="light"] #consulting-section .border-gray-100 { border-color: #f3f4f6 !important; }
         html[data-theme="light"] #result-details .border-gray-200,
         html[data-theme="light"] #consulting-section .border-gray-200 { border-color: #e5e7eb !important; }
+        html[data-theme="light"] #result-details .bg-\[\#fafafc\],
+        html[data-theme="light"] #consulting-section .bg-\[\#fafafc\] { background-color: #fafafc !important; }
+        html[data-theme="light"] #result-details .bg-gray-100,
+        html[data-theme="light"] #consulting-section .bg-gray-100 { background-color: #f3f4f6 !important; }
+        html[data-theme="light"] #result-details .text-orange-600 { color: #ea580c !important; }
         html[data-theme="light"] #result-details .region-badge,
         html[data-theme="light"] #consulting-section .region-badge { color: #1a7f37; }
         html[data-theme="light"] #result-details .region-badge.badge-warn,
