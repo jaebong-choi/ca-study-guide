@@ -173,7 +173,7 @@ const I18N = {
     costLivingNote: "스터디 퍼밋 증빙 기준액",
     costIns: "의료보험",
     costInsNote: "주 보험 또는 사보험",
-    costFoot: "※ 학비는 모두 국제학생 기준이며 전공에 따라 차이가 있습니다. 생활비는 실제 지출 추정이 아니라 스터디 퍼밋에서 증빙하도록 정한 기준액이라, 토론토·밴쿠버 실제 생활비는 대개 이보다 높습니다.",
+    costFoot: "※ 생활비는 실제 지출 추정이 아니라 스터디 퍼밋에서 증빙하도록 정한 기준액입니다. 토론토·밴쿠버 실제 생활비는 대개 이보다 높습니다.",
         saveDesc: "진단 결과는 링크 하나에 담겨 있습니다. 복사해서 나에게 보내 두거나, 함께 고민하는 친구·가족과 공유하세요.",
         nextSteps: [
             ["프로그램 확정:", "관심 전공의 PGWP 적격 여부를 프로그램 단위(CIP 코드)로 확인하고 지원 프로그램을 확정하세요."],
@@ -366,7 +366,7 @@ const I18N = {
     costLivingNote: "Study permit proof-of-funds figure",
     costIns: "Health insurance",
     costInsNote: "Provincial plan or private cover",
-    costFoot: "All tuition is the international rate and varies by programme. The living figure is not a spending estimate: it is the amount a study permit requires you to show, and actual costs in Toronto and Vancouver usually run higher.",
+    costFoot: "The living figure is not a spending estimate: it is the amount a study permit requires you to show. Actual costs in Toronto and Vancouver usually run higher.",
     tuitionPending: "All tuition shown is the international rate and varies by programme even within one college. Unmarked figures are tuition for a two-semester year; those marked as including compulsory fees come from colleges that do not publish the two separately. Where no figure appears, the college prices by programme only, so check its own site.",
         saveDesc: "Your result lives in a single link. Send it to yourself, or share it with family and friends who are helping you decide.",
         nextSteps: [

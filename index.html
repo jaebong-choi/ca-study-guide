@@ -64,7 +64,7 @@
         });
     </script>
 
-    <script src="i18n.js?v=20260808"></script>
+    <script src="i18n.js?v=20260809"></script>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -592,7 +592,7 @@
     </div>
 
     <!-- ===================== RESULT HERO ===================== -->
-    <div id="result-hero" class="hidden bg-apple-black text-apple-white py-32 px-4 text-center">
+    <div id="result-hero" class="hidden bg-apple-black text-apple-white py-24 px-4 text-center">
         <div class="max-w-[980px] mx-auto fade-in-up">
             <h2 class="sf-display-section mb-6" data-i18n="resultDone">분석이 완료되었습니다.</h2>
             <h3 id="result-pathway-title" class="sf-display-hero text-apple-blue mb-8">Pathway Name</h3>
@@ -619,7 +619,7 @@
         <div class="max-w-[980px] mx-auto" id="pdf-content">
 
             <!-- Profile Summary -->
-            <div class="mb-24 text-center">
+            <div class="mb-16 text-center">
                 <h3 class="sf-display-card mb-12">Profile Summary</h3>
                 <div class="flex flex-wrap justify-center gap-8 md:gap-14 sf-text-body" id="profile-summary">
                     <!-- Summary items injected via JS -->
@@ -627,7 +627,7 @@
             </div>
 
             <!-- Major Recommendation Section -->
-            <div class="mb-24">
+            <div class="mb-16">
                 <h3 class="sf-display-section text-center mb-10">AI Recommended Major</h3>
                 <div class="apple-card max-w-4xl mx-auto">
                     <div class="text-center mb-4" id="rec-major-badge"></div>
@@ -670,7 +670,7 @@
             </div>
 
             <!-- 영어 성적 없을 때: 어학연수·ESL → 조건부 입학 안내 -->
-            <div id="lang-notice" class="hidden max-w-4xl mx-auto mb-24">
+            <div id="lang-notice" class="hidden max-w-4xl mx-auto mb-16">
                 <div class="info-banner p-8 md:p-10">
                     <div class="flex items-start gap-4">
                         <i class="fa-solid fa-language text-[#FF7059] text-2xl mt-1"></i>
@@ -683,7 +683,7 @@
             </div>
 
             <!-- Pathway Guide (디플로마 직행 / 준석사 과정 / 대학 편입) -->
-            <div class="mb-24" id="pathway-guide-section">
+            <div class="mb-16" id="pathway-guide-section">
                 <h3 class="sf-display-section text-center mb-3" data-i18n="guideSectionTitle">캐나다 진학 경로 가이드</h3>
                 <p class="sf-text-body text-gray-500 text-center mb-12 max-w-2xl mx-auto" id="pathway-guide-sub" data-i18n="guideSectionSub">
                     같은 목표라도 학력과 전공에 따라 최적의 경로는 다릅니다. 세 가지 진학 경로를 비교해 보세요.
@@ -729,15 +729,15 @@
                         </table>
                     </div>
                     <p class="fx-date sf-text-caption text-gray-400 text-center mt-3"></p>
-                    <p class="sf-text-caption text-gray-400 text-center mt-2 leading-relaxed" data-i18n="costFoot">※ 학비는 모두 국제학생 기준이며 전공에 따라 차이가 있습니다. 생활비는 실제 지출 추정이 아니라 스터디 퍼밋에서 증빙하도록 정한 기준액이라, 토론토·밴쿠버 실제 생활비는 대개 이보다 높습니다.</p>
+                    <p class="sf-text-caption text-gray-400 text-center mt-2 leading-relaxed" data-i18n="costFoot">※ 생활비는 실제 지출 추정이 아니라 스터디 퍼밋에서 증빙하도록 정한 기준액입니다. 토론토·밴쿠버 실제 생활비는 대개 이보다 높습니다.</p>
                 </div>
-                <p class="sf-text-caption text-gray-400 text-center mb-24" data-i18n="policyNote">
+                <p class="sf-text-caption text-gray-400 text-center mb-16" data-i18n="policyNote">
                     ※ 본 안내는 2026년 IRCC 발표 기준이며 정책은 변동될 수 있습니다. 결과는 안내용이며, 프로그램별 최종 적격 여부(CIP 코드)와 최신 학비는 각 컬리지 공식 페이지와 IRCC 공식 안내에서 확인하세요.
                 </p>
             </div>
 
             <!-- Official Sources -->
-            <div class="info-banner p-10 mb-24">
+            <div class="info-banner p-10 mb-16">
                 <div class="text-center md:text-left mb-8">
                     <p class="sf-text-caption text-[#FF7059] font-semibold uppercase tracking-wider mb-2">Official Sources</p>
                     <h4 class="sf-display-card text-white mb-2" id="board-section-title">공식 정보로 다음 단계를 확인하세요</h4>
@@ -754,7 +754,7 @@
             </div>
 
             <!-- Next Steps & Info -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-24">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
                 <!-- Next Steps Card -->
                 <div class="apple-card-flat">
                     <h4 class="sf-display-card-bold mb-6 border-b border-gray-200 pb-4">Next Steps</h4>
@@ -781,7 +781,7 @@
         </div>
 
         <!-- Call to Action Footer -->
-        <div class="mt-20 text-center border-t border-gray-200 pt-16">
+        <div class="mt-16 text-center border-t border-gray-200 pt-12">
             <h2 class="sf-display-section mb-4" data-i18n="saveTitle">이 결과, 저장해 두세요.</h2>
             <p class="sf-text-body text-gray-500 mb-8 max-w-xl mx-auto" data-i18n="saveDesc">진단 결과는 링크 하나에 담겨 있습니다. 복사해서 나에게 보내 두거나, 함께 고민하는 친구·가족과 공유하세요.</p>
             <div class="flex flex-col sm:flex-row justify-center gap-4">
