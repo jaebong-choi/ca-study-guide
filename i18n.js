@@ -111,9 +111,11 @@ const I18N = {
 
         /* 공통 블록 */
         boardTitle: (major, route) => `${major} ${route} 진학, 다음 단계로 이어가세요`,
-        officialPgwp: "졸업 후 취업허가(PGWP) 공식 안내 | 적격 전공 목록 확인 — IRCC",
-        officialStudyPermit: "학업허가(Study Permit) 신청 공식 안내 — IRCC",
-        officialEduCanada: "EduCanada | 캐나다 정부 공식 유학 포털 (장학금·생활 정보)",
+        infoRead: "읽는 데 {0}분 · 정보 확인 {1}",
+        cat_pathway: "진학 경로",
+        cat_cost: "학비·비용",
+        cat_english: "영어·요건",
+        cat_major: "전공 선택",
 
         /* 경로 가이드 · 영어 안내 */
         guideSubMatched: "진단 결과, 아래 경로가 가장 적합합니다. 단계별 준비 과정을 확인해 보세요.",
@@ -142,8 +144,7 @@ const I18N = {
         guideSectionSub: "같은 목표라도 학력과 전공에 따라 최적의 경로는 다릅니다. 세 가지 진학 경로를 비교해 보세요.",
         guideNote: "※ 경로별 입학 요건·편입 인정 범위는 컬리지와 전공에 따라 다릅니다. 지원 전 각 컬리지 공식 입학처에서 최신 기준을 확인하세요.",
         policyNote: "※ 본 안내는 2026년 IRCC 발표 기준이며 정책은 변동될 수 있습니다. 결과는 안내용이며, 프로그램별 최종 확인은 공식 채널에서 하시기 바랍니다.",
-        boardSub: "학업허가·PGWP·편입 제도는 캐나다 정부와 각 기관의 공식 채널 기준이 항상 우선합니다.",
-        eduCanadaBtn: "캐나다 정부 공식 유학 안내 (EduCanada)",
+        boardSub: "정부·학교 공식 자료만으로 작성한 글입니다. 이 결과와 관련된 것만 골라 뒀습니다.",
         visaTitle: "비자 · 공식 정보",
         panoramaAlt: "캐나다 국기와 CANADA 레터링",
         saveTitle: "이 결과, 저장해 두세요.",
@@ -305,9 +306,11 @@ const I18N = {
 
         /* 공통 블록 */
         boardTitle: (major, route) => `${major} ${route} — what to do next`,
-        officialPgwp: "Post-graduation work permit — official guide and eligible field list (IRCC)",
-        officialStudyPermit: "Study permit — how to apply (IRCC)",
-        officialEduCanada: "EduCanada — the Canadian Government's study portal (scholarships and living costs)",
+        infoRead: "{0} min read · verified {1}",
+        cat_pathway: "Entry routes",
+        cat_cost: "Fees and costs",
+        cat_english: "English and entry",
+        cat_major: "Choosing a field",
 
         /* 경로 가이드 · 영어 안내 */
         guideSubMatched: "Based on your answers, this is the route that fits best. Here is what each stage involves.",
@@ -336,8 +339,7 @@ const I18N = {
         guideSectionSub: "Even with the same goal, the best route depends on your background and field. Compare the three below.",
         guideNote: "Entry requirements and the amount of credit recognised differ by college and field. Check the current requirements with each college's admissions office before you apply.",
         policyNote: "This guide follows the 2026 IRCC announcements, and policy can change. Treat the result as guidance and confirm the details for each programme through official channels.",
-        boardSub: "For study permits, work permits and transfer arrangements, the official channels of the Canadian Government and each institution always take precedence.",
-        eduCanadaBtn: "EduCanada — the Canadian Government's official study guide",
+        boardSub: "Written from government and institutional sources only. These are the ones that bear on your result.",
         visaTitle: "Visa and official information",
         panoramaAlt: "The Canadian flag with CANADA lettering",
         saveTitle: "Keep this result",

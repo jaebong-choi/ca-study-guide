@@ -64,7 +64,7 @@
         });
     </script>
 
-    <script src="i18n.js?v=20260809"></script>
+    <script src="i18n.js?v=20260810"></script>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -736,20 +736,17 @@
                 </p>
             </div>
 
-            <!-- Official Sources -->
-            <div class="info-banner p-10 mb-16">
+            <!-- 이 결과와 관련된 유학 정보 — 허브 guide/ca-info-*.html로 보낸다.
+                 예전에는 이 자리에 IRCC 링크 3개가 있었는데 아래 "비자 · 공식 정보" 카드와
+                 완전히 겹쳐서(같은 링크 셋) 글 목록으로 바꿨다. 공식 링크는 그 카드가 맡는다. -->
+            <div class="info-banner p-10 mb-16" id="info-articles-section" style="display:none">
                 <div class="text-center md:text-left mb-8">
-                    <p class="sf-text-caption text-[#FF7059] font-semibold uppercase tracking-wider mb-2">Official Sources</p>
+                    <p class="sf-text-caption text-[#FF7059] font-semibold uppercase tracking-wider mb-2">Study Guide</p>
                     <h4 class="sf-display-card text-white mb-2" id="board-section-title">공식 정보로 다음 단계를 확인하세요</h4>
-                    <p class="sf-text-body text-gray-400" data-i18n="boardSub">학업허가·PGWP·편입 제도는 캐나다 정부와 각 기관의 공식 채널 기준이 항상 우선입니다.</p>
+                    <p class="sf-text-body text-gray-400" data-i18n="boardSub">정부·학교 공식 자료만으로 작성한 글입니다. 이 결과와 관련된 것만 골라 뒀습니다.</p>
                 </div>
-                <div id="board-articles" class="space-y-3 mb-8">
-                    <!-- official links injected via JS -->
-                </div>
-                <div class="text-center md:text-left">
-                    <a href="https://www.educanada.ca/index.aspx?lang=eng" target="_blank" rel="noopener" class="apple-btn-primary bg-white text-[#1d1d1f] hover:bg-gray-200">
-                        <span data-i18n="eduCanadaBtn">캐나다 정부 공식 유학 안내 (EduCanada)</span> <i class="fa-solid fa-arrow-right text-xs ml-2"></i>
-                    </a>
+                <div id="board-articles" class="space-y-3">
+                    <!-- 허브 색인에서 채운다 -->
                 </div>
             </div>
 
@@ -1941,27 +1938,61 @@
             renderCommonBlocks(t('majorPrivate'), t('routeUniDirect'));
         }
 
-        // ---------- 공통 블록 (Resource Center / Next Steps) ----------
+        // ---------- 공통 블록 (유학 정보 글 / Next Steps) ----------
         function renderCommonBlocks(majorShort, routeShort) {
             document.getElementById('board-section-title').innerText = t('boardTitle')(majorShort, routeShort);
-            const officialLinks = [
-                { url: OFFICIAL_LINKS.pgwp, icon: "fa-solid fa-briefcase", title: t('officialPgwp') },
-                { url: OFFICIAL_LINKS.studyPermit, icon: "fa-solid fa-passport", title: t('officialStudyPermit') },
-                { url: OFFICIAL_LINKS.educanada, icon: "fa-regular fa-file-lines", title: t('officialEduCanada') }
-            ];
-            document.getElementById('board-articles').innerHTML = officialLinks.map(a => `
-                <a href="${a.url}" target="_blank"
-                   class="flex items-center justify-between gap-4 bg-[#1d1d1f] hover:bg-[#333336] border border-[#3a3a3c] rounded-xl px-6 py-4 transition group">
-                    <span class="sf-text-body text-gray-200 group-hover:text-white text-left">
-                        <i class="${a.icon} text-[#FF7059] mr-3"></i>${a.title}
-                    </span>
-                    <i class="fa-solid fa-arrow-right text-[#FF7059] text-sm shrink-0 group-hover:translate-x-1 transition-transform"></i>
-                </a>
-            `).join('');
+            renderInfoArticles();
 
             document.getElementById('next-steps-list').innerHTML = t('nextSteps').map(([head, body]) => `
                 <li class="flex items-start"><i class="fa-solid fa-check text-apple-blue mt-1 mr-4"></i> <span><strong>${head}</strong> ${body}</span></li>`
             ).join('');
+        }
+
+        // ============================================================
+        // 유학 정보 글 — 허브 guide/ca-info-*.html
+        // ⚠ 제목은 허브 data/articles-ca.json 한곳에만 둔다. 여기 복사해 두면 반드시 어긋난다
+        //   (영국이 26편을 그렇게 어긋나게 뒀던 적이 있다). 여기는 slug와 노출 조건만 갖는다.
+        // ============================================================
+        const HUB_ARTICLE = HUB_BASE + '/guide/ca-info-';
+        const HUB_ARTICLE_INDEX = HUB_BASE + '/data/articles-ca-index.json';
+
+        // tracks를 안 주면 두 트랙 모두에 나온다. majors를 주면 그 전공일 때만 나온다.
+        const INFO_CA = [
+            { slug: 'pgwp-eligibility' }
+        ];
+
+        /* 허브와 같은 오리진(jaebong-choi.github.io)이라 CORS가 필요 없다.
+           못 받으면 조용히 비워 둔다 — 글 섹션만 안 나오고 결과의 나머지는 그대로다. */
+        let ARTICLE_INDEX = null;
+        fetch(HUB_ARTICLE_INDEX)
+            .then(r => r.ok ? r.json() : null)
+            .then(d => { if (d) { ARTICLE_INDEX = d; renderInfoArticles(); } })
+            .catch(() => {});
+
+        /* 결과를 그린 뒤와 색인이 도착한 뒤 양쪽에서 부른다(환율과 같은 방식).
+           색인에 없는 slug는 건너뛴다 — 빈 행 대신 아예 안 그린다. */
+        function renderInfoArticles() {
+            const sec = document.getElementById('info-articles-section');
+            const wrap = document.getElementById('board-articles');
+            if (!sec || !wrap) return;
+            const p = userProfile;
+            const rows = INFO_CA
+                .filter(a => !a.tracks || a.tracks.indexOf(p.track) > -1)
+                .filter(a => !a.majors || a.majors.indexOf(p.majorCat) > -1)
+                .map(a => ARTICLE_INDEX && ARTICLE_INDEX[a.slug]
+                    ? Object.assign({ url: HUB_ARTICLE + a.slug + '.html' }, ARTICLE_INDEX[a.slug])
+                    : null)
+                .filter(Boolean);
+            sec.style.display = rows.length ? 'block' : 'none';
+            wrap.innerHTML = rows.map(a => `
+                <a href="${a.url}" target="_blank" rel="noopener"
+                   class="flex items-center justify-between gap-4 bg-[#1d1d1f] hover:bg-[#333336] border border-[#3a3a3c] rounded-xl px-6 py-4 transition group">
+                    <span class="text-left">
+                        <span class="sf-text-body block text-gray-200 group-hover:text-white">${LANG === 'en' ? a.en : a.ko}</span>
+                        <span class="sf-text-caption block text-gray-500 mt-1">${t('cat_' + (a.cat || 'major'))} · ${t('infoRead').replace('{0}', a.min).replace('{1}', a.ver)}</span>
+                    </span>
+                    <i class="fa-solid fa-arrow-right text-[#FF7059] text-sm shrink-0 group-hover:translate-x-1 transition-transform"></i>
+                </a>`).join('');
         }
 
         // ============================================================
