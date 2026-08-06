@@ -2253,7 +2253,9 @@
             // 장학금은 대학·컬리지 양쪽을 다루므로 두 트랙에 건다
             { slug: 'scholarships' },
             // 퍼밋 유지 규칙(전학·휴학·수료 후 90일)은 두 트랙이 똑같이 걸린다
-            { slug: 'study-permit-rules' }
+            { slug: 'study-permit-rules' },
+            // 과정 단위 PGWP 함정(비학점·파트너 캠퍼스)은 pgwp-eligibility의 실전편 — 두 트랙 공통
+            { slug: 'pgwp-course-flags' }
         ];
 
         /* 허브와 같은 오리진(jaebong-choi.github.io)이라 CORS가 필요 없다.
