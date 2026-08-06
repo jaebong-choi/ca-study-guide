@@ -45,13 +45,8 @@ const I18N = {
         subLineTier: (region, tier) => `${region} ${tier} 컬리지`,
 
         /* 국제 사립학교 카드 */
-        privateType: (city) => `국제 사립학교 · ${city}`,
         pointLabel: "추천 포인트",
         programLabel: "과정",
-        ossdRoute: "OSSD 취득 → 대학 직행",
-        feeTimingLabel: "학비·입학 시기",
-        checkSchoolPage: "학교 공식 페이지 확인",
-        ontarioPrivateLink: "온타리오 사립학교 공식 안내",
 
         /* 트랙 A: 커리어·이민 */
         careerTitleBlocked: (m) => `${m} 경로, 재설계가 필요합니다`,
@@ -109,6 +104,29 @@ const I18N = {
         majorPrivate: "국제 사립학교",
         routeUniDirect: "대학 직행",
 
+        /* 트랙 B (고3·고교 졸업): 세 경로를 모두 안내 */
+        hsAllTitle: "고교 졸업 후 캐나다 대학 진학, 세 가지 경로",
+        hsAllDesc: "고교를 마쳤다면 길이 하나로 좁혀지지 않습니다. 국제 사립학교에서 온타리오 고교 졸업장(OSSD)을 채워 대학 1학년으로 직행하는 길, 컬리지에서 2년을 이수하고 3학년으로 편입하는 길, 대학 부설 패스웨이로 1학년을 대체하고 2학년으로 올라가는 길이 모두 열려 있습니다. 셋 다 학사 학위로 끝나므로 졸업 후 취업허가(PGWP)에 전공 제한이 붙지 않습니다.",
+        hsAllEngNote: " 공인 영어 성적이 아직 없다면 세 경로의 출발점이 달라집니다. 아래 경로 카드에서 각각의 영어 기준을 비교해 보세요.",
+        hsAllTrackSuffix: " · 학사 학위 경로",
+        hsAllMajorDesc: (part) => `어느 경로로 가든 ${part} 캐나다 4년제 대학에서 학사 학위를 받는 것이 목표입니다. 학위 과정이라 졸업 후 취업허가(PGWP)에 전공 제한이 없고, 차이는 대학에 몇 학년으로 들어가느냐와 준비 기간·비용입니다.`,
+        hsAllNote: "※ 세 경로 모두 학사 학위로 끝나므로 PGWP 전공 제한을 받지 않습니다. 성적·영어·예산에 따라 유리한 경로가 달라집니다.",
+        hsAllRegionNote: (region) => `※ ${region} 기준으로 경로별 대표 학교를 함께 보여드립니다. 아래 세 묶음을 나란히 비교해 보세요.`,
+        regionBCName: "BC (밴쿠버권)",
+        regionONName: "온타리오 (토론토권)",
+        hsGroupOssd: "국제 사립고에서 OSSD 채우기",
+        hsGroupOssdSub: "이전 학력을 학점으로 인정받고 남은 과목만 이수한 뒤, 캐나다 내신으로 대학 1학년에 지원합니다.",
+        hsGroupTransfer: "컬리지에서 2년 뒤 편입",
+        hsGroupTransferSub: "컬리지 학점을 대학으로 옮겨 3학년으로 들어갑니다. 학비를 가장 많이 아끼는 경로입니다.",
+        hsGroupPathway: "대학 부설 패스웨이",
+        hsGroupPathwaySub: "대학 캠퍼스에서 1학년 과정을 듣고 2학년으로 올라갑니다. 학위 기간은 4년 그대로입니다.",
+        routeNo: (n) => `경로 ${n}`,
+        schoolFeeLabel: "학비",
+        routeMajorsLabel: "진학 가능 전공",
+        ossdCreditCell: (credits, hours, left) => `최대 ${credits}학점 · 봉사 ${hours}시간 인정 → 남은 ${left}과목`,
+        majorHsAll: "고교 졸업 후",
+        routeHsAll: "대학",
+
         /* 공통 블록 */
         boardTitle: (major, route) => `${major} ${route} 진학, 다음 단계로 이어가세요`,
         infoRead: "읽는 데 {0}분 · 정보 확인 {1}",
@@ -136,7 +154,7 @@ const I18N = {
         resultDone: "분석이 완료되었습니다.",
         shareHint: "무료 상담 신청 시 이 진단 결과가 자동으로 첨부됩니다. 링크를 복사해 카카오톡·문자로 전달하면 같은 결과 페이지가 열립니다.",
         switchTrackBtn: "학위·편입 트랙으로 전환",
-        hsExtraBadge: "중·고교 재학 ~ 고교 졸업 전 추가 옵션",
+        hsExtraBadge: "중·고 재학생과 고교 졸업자 모두 가능",
         hsTitle: "국제 사립학교 → 대학 직행 경로",
         ontarioPrivateLink2: "온타리오 사립학교 공식 안내 (Ontario.ca)",
         langNoticeTitle: "영어 성적이 없어도 시작할 수 있습니다",
@@ -199,12 +217,15 @@ const I18N = {
         policy3Body: "— 학사·석·박사 학위 과정 졸업자는 전공과 무관하게 PGWP가 가능합니다(컬리지 학사 포함).",
         policyFoot: "※ 정책은 변동될 수 있으며, 최신 기준은 IRCC 공식 발표에서 확인하세요.",
         policyFootLink: "IRCC 공식 발표",
-        hsIntro: "중·고등학교 재학 중이거나 고교 졸업 전(고3 포함)이라면 컬리지 편입 외에, 토론토의 국제 사립학교(BICC·TAIE·UMC 하이스쿨 등)에서 온타리오 고교 졸업장(OSSD)을 취득한 뒤 캐나다 대학에 바로 지원하는 경로도 선택할 수 있습니다.",
-        hsStep1: "국제 사립학교 편입 (중·고 재학생은 학년에 맞춰, 고3·고졸은 12학년으로 — ESL 병행 가능)",
+        hsIntro: "토론토의 국제 사립학교(BICC·TAIE·UMC 하이스쿨 등)에서 온타리오 고교 졸업장(OSSD)을 취득한 뒤 캐나다 대학에 바로 지원하는 경로입니다. 중·고등학교 재학 중은 물론 이미 고교를 마친 뒤에도 고를 수 있습니다.",
+        hsStep1: "국제 사립학교 입학 — 재학생은 학년에 맞춰, 고교 졸업자는 이전 학력을 학점으로 인정받고 남은 과목만 이수 (ESL 병행 가능)",
         hsStep2: "온타리오 고교 졸업장(OSSD) 취득 — 12학년 내신(Top 6 과목)으로 대학 지원",
         hsStep3: "토론토대·UBC 등 대학 1학년 직행 → 학위 취득 시 PGWP 전공 제한 없음",
         hsPros: "수능·한국 내신 부담 없이 현지 내신으로 명문대에 도전할 수 있고, 컬리지 편입 단계를 건너뜁니다.",
-        hsCaution: "입학 시기·이수 과목에 따라 기간이 달라지며, 대학별 영어 요건(IELTS 등)은 별도로 충족해야 합니다."
+        hsOssdReq: "OSSD 졸업 요건은 30학점(필수 18 + 선택 12)과 봉사활동 40시간, 10학년 문해력 시험입니다.",
+        hsCreditTitle: "※ 어느 학년을 마치고 들어가느냐에 따라 인정 학점과 남은 과목 수가 정해집니다 (BICC 안내서 기준).",
+        hsMature: "고교를 이미 마쳤다면 온타리오 규정상 만 18세 이상은 성인 학생으로 분류됩니다. 이전 학력으로 9·10학년 최대 16학점, 11·12학년 최대 10학점까지 인정받고 11·12학년 4학점만 실제로 이수하면 졸업 요건 30학점을 채울 수 있습니다.",
+        hsCaution: "학점 인정 범위는 학교장이 서류를 보고 정하고, 사립학교는 이 인정 절차를 의무가 아니라 선택으로 운영합니다. 실제로 몇 과목을 들어야 하는지와 학비·기숙사는 지원 전 각 학교 공식 페이지에서 확인하세요."
     },
 
     en: {
@@ -240,13 +261,8 @@ const I18N = {
         subLineTier: (region, tier) => `${region} · ${tier}`,
 
         /* 국제 사립학교 카드 */
-        privateType: (city) => `International private school · ${city}`,
         pointLabel: "Why this school",
         programLabel: "Programme",
-        ossdRoute: "OSSD, then straight to university",
-        feeTimingLabel: "Tuition and intake",
-        checkSchoolPage: "Check the school's own site",
-        ontarioPrivateLink: "Official guide to Ontario private schools",
 
         /* 트랙 A: 커리어·이민 */
         careerTitleBlocked: (m) => `${m}: this route needs rethinking`,
@@ -304,6 +320,29 @@ const I18N = {
         majorPrivate: "International private school",
         routeUniDirect: "route",
 
+        /* 트랙 B (고3·고교 졸업): 세 경로를 모두 안내 */
+        hsAllTitle: "Three ways into a Canadian university once school is behind you",
+        hsAllDesc: "Finishing school does not narrow you to one route. You can top up your credits at an international private school, earn the Ontario Secondary School Diploma and go straight into year 1; you can spend two years at a college and transfer into year 3; or you can take a university pathway that replaces first year and move up into year 2. All three end in a bachelor degree, which carries no field restriction on the post-graduation work permit.",
+        hsAllEngNote: " Without a test score yet, the three routes start in different places. Compare the English requirement on each route card below.",
+        hsAllTrackSuffix: " · degree route",
+        hsAllMajorDesc: (part) => `Whichever route you take, the destination is the same: ${part} and graduate with a bachelor degree from a Canadian university. Because it is a degree, the work permit carries no field restriction. What differs is the year you enter, how long it takes and what it costs.`,
+        hsAllNote: "All three routes end in a degree, so none of them run into the work-permit field restrictions. Which one suits you depends on your grades, your English and your budget.",
+        hsAllRegionNote: (region) => `The schools below are the main options for ${region}, grouped by route. Compare the three groups side by side.`,
+        regionBCName: "British Columbia (Vancouver area)",
+        regionONName: "Ontario (Greater Toronto)",
+        hsGroupOssd: "Top up your credits at an international private school",
+        hsGroupOssdSub: "Your previous schooling is assessed for credit, you take only the subjects still missing, and you apply to year 1 on Canadian grades.",
+        hsGroupTransfer: "Two years at a college, then transfer",
+        hsGroupTransferSub: "College credits carry across and you enter year 3. This is the route that saves the most on tuition.",
+        hsGroupPathway: "University pathway college",
+        hsGroupPathwaySub: "You take first-year courses on the university campus and move into year 2. The degree still takes four years in total.",
+        routeNo: (n) => `Route ${n}`,
+        schoolFeeLabel: "Fees",
+        routeMajorsLabel: "Degrees you can enter",
+        ossdCreditCell: (credits, hours, left) => `Up to ${credits} credits and ${hours} volunteer hours → ${left} courses left`,
+        majorHsAll: "Leaving school",
+        routeHsAll: "for university",
+
         /* 공통 블록 */
         boardTitle: (major, route) => `${major} ${route} — what to do next`,
         infoRead: "{0} min read · verified {1}",
@@ -331,7 +370,7 @@ const I18N = {
         resultDone: "Here is your result.",
         shareHint: "Your result is attached automatically when you request advice. Copy the link to share it — anyone who opens it sees the same result page.",
         switchTrackBtn: "Switch to the degree and transfer track",
-        hsExtraBadge: "An extra option while you are still at school",
+        hsExtraBadge: "Open to students still at school and to those who have finished",
         hsTitle: "International private school, then straight to university",
         ontarioPrivateLink2: "Official guide to Ontario private schools (Ontario.ca)",
         langNoticeTitle: "You can start without an English score",
@@ -394,12 +433,15 @@ const I18N = {
         policy3Body: "— Graduates of bachelor's, master's and doctoral programmes qualify regardless of field, including college bachelor's degrees.",
         policyFoot: "Policy can change. Confirm the current position in the official IRCC announcements.",
         policyFootLink: "official IRCC announcements",
-        hsIntro: "If you are still at secondary school, or have not yet left it, there is an alternative to transferring through a college: study at an international private school in Toronto — BICC, TAIE or UMC High School, for example — earn the Ontario Secondary School Diploma, and apply directly to a Canadian university.",
-        hsStep1: "Join an international private school — at your current year group, or in grade 12 if you are finishing school, with ESL alongside if needed",
+        hsIntro: "Study at an international private school in Toronto — BICC, TAIE or UMC High School, for example — earn the Ontario Secondary School Diploma, and apply directly to a Canadian university. The route is open whether you are still at school or have already finished.",
+        hsStep1: "Join an international private school — at your current year group, or, if you have finished school, with your previous studies assessed for credit so you take only the subjects still missing (ESL alongside if needed)",
         hsStep2: "Earn the Ontario Secondary School Diploma and apply on your grade 12 results (top six subjects)",
         hsStep3: "Enter year 1 at a university such as Toronto or UBC — a degree carries no field restriction on the work permit",
         hsPros: "You are assessed on Canadian school results rather than the Korean CSAT, and you skip the college transfer step altogether.",
-        hsCaution: "How long it takes depends on your intake date and the subjects you need, and university English requirements such as IELTS must be met separately."
+        hsOssdReq: "The diploma takes 30 credits — 18 compulsory and 12 optional — plus 40 hours of community service and the grade 10 literacy test.",
+        hsCreditTitle: "How many credits are recognised, and how many courses are left, depends on the year you finish before you arrive. Figures from BICC's brochure.",
+        hsMature: "If you have already finished school, Ontario treats anyone aged 18 or over as a mature student. Previous study can be recognised for up to 16 grade 9 and 10 credits and up to 10 grade 11 and 12 credits, so taking just four grade 11 and 12 courses completes the 30 credits the diploma requires.",
+        hsCaution: "How much is recognised is decided by the principal from your documents, and private schools apply this assessment by choice rather than obligation. Confirm how many courses you would actually take, along with fees and boarding, on each school's own page before applying."
     }
 };
 
@@ -596,12 +638,83 @@ const DATA_EN = {
     "편입은 컬리지 성적(GPA)이 좌우합니다. 대학·전공별 편입 요건 확인이 필요합니다.":
         "Transfer depends on your college GPA. Check the requirements for each university and course.",
 
-    /* --- 사립 고교 (OSSD) --- */
-    "OSSD 12학년 · 대학 진학 집중 관리": "OSSD grade 12, with close support for university entry",
-    "소수정예 관리형 수업과 대학 지원 컨설팅": "Small classes with close supervision, plus university application support",
-    "OSSD 12학년 · ESL 병행": "OSSD grade 12 alongside ESL",
-    "유학생 대상 운영 노하우와 진학 실적": "Long experience with international students and a strong entry record",
-    "유연한 입학 시기와 단계별 영어 지원": "Flexible start dates and staged English support",
+    "국제 사립고 → 대학 직행": "International private school, then straight to university",
+    "중·고 재학생은 물론 고3·고교 졸업자도 고를 수 있습니다. 캐나다 고교 내신을 만들어 대학 1학년으로 바로 들어가는 경로입니다.":
+        "you are still at school, or have just left it. Either way you build a Canadian school record and enter year 1 directly.",
+    "온타리오 인가 사립고 입학 (공인 영어 성적 없이 ESL 병행 가능)": "Enrol at a licensed Ontario private school — no test score needed, with ESL alongside",
+    "이전 학력을 온타리오 학점으로 인정받고 남은 과목만 이수 → OSSD": "Have your previous study recognised as Ontario credits and take only what is missing, to the diploma",
+    "12학년 내신(Top 6)으로 토론토대·UBC 등 1학년 지원": "Apply to year 1 at Toronto, UBC and others on your top six grade 12 results",
+    "고교를 이미 마쳤다면 온타리오 규정상 만 18세 이상은 성인 학생으로 분류되어, 이전 학력으로 최대 26학점까지 인정받고 11·12학년 4학점만 실제로 이수하면 졸업장 30학점을 채울 수 있습니다.":
+        "If you have already finished school, Ontario treats anyone aged 18 or over as a mature student: up to 26 credits can be recognised from previous study, so four grade 11 and 12 courses complete the 30 the diploma requires.",
+    "학점 인정 범위는 학교장이 서류를 보고 판단하고, 사립학교는 이 인정 절차를 의무가 아니라 선택으로 운영합니다. 지원 전 학교에 몇 과목을 들어야 하는지부터 확인하세요.":
+        "How much is recognised is the principal's judgement on your documents, and private schools run this assessment by choice rather than obligation. Ask how many courses you would take before you apply.",
+
+    "대학 부설 패스웨이": "University pathway college",
+    "University Pathway (UTP)": "University pathway (UTP)",
+    "고교 졸업 성적이나 영어가 직접 지원에 조금 모자란 분. 대학 캠퍼스 안에서 1학년 과정을 듣고 2학년으로 올라갑니다.":
+        "your school results or English fall a little short of applying directly. You take first-year courses on the university campus and move up into year 2.",
+    "패스웨이 컬리지 입학 (IELTS 5.5 내외부터)": "Start at the pathway college, from around IELTS 5.5",
+    "학부 1학년 과정(UTP) 8~12개월 이수": "Complete the first-year programme (UTP) over 8 to 12 months",
+    "기준 성적 충족 시 본교 2학년 편입 → 학위 기간은 4년 그대로": "Meet the grade threshold and enter year 2 at the university — the degree still takes four years",
+    "직접 입학보다 낮은 성적·영어로 시작하는데 수업은 본교 캠퍼스에서 듣고, 1학년을 대체하는 방식이라 졸업이 늦어지지 않습니다.":
+        "You start on lower grades and English than direct entry, but study on the university's own campus, and because it replaces first year it does not delay graduation.",
+    "학교가 정해져 있어 대학을 자유롭게 고를 수 없고, 학비는 본교 1학년과 비슷한 수준입니다.":
+        "The university is fixed, so you cannot shop around, and fees sit close to first-year undergraduate level.",
+
+    /* --- 사립 고교 (OSSD) · 편입·패스웨이 학교 카드 --- */
+    "OSSD 9~12학년 · 대학 진학 집중 관리": "OSSD grades 9-12, with close support for university entry",
+    "2025년 한국 학생 95명이 1인당 평균 7.5개 오퍼 · 진학은 캐나다 30%, 영국 30%, 호주 20%":
+        "In 2025 its 95 Korean students averaged 7.5 offers each, and went on to Canada (30%), the UK (30%) and Australia (20%)",
+    "OSSD 7~12학년 · 고교 졸업자용 UPC 운영": "OSSD grades 7-12, plus a UPC programme for school leavers",
+    "연 6학기제라 원하는 달에 시작할 수 있고 기숙사를 직접 운영": "Six terms a year, so you can start almost any month, and the school runs its own residences",
+    "OSSD 9~12학년 · ESL 병행": "OSSD grades 9-12 alongside ESL",
+    "8주 학기제로 필요한 과목만 빠르게 채울 수 있음": "Eight-week terms let you clear just the subjects you need, quickly",
+    "OSSD 취득 → 대학 직행": "Earn the OSSD, then year 1",
+    "OSSD 또는 UPC → 대학 직행": "OSSD or UPC, then year 1",
+    "연 C$20,000 (8과목)": "C$20,000 a year for 8 courses",
+    "10학점 C$29,950 · 8학점 C$24,760": "C$29,950 for 10 credits · C$24,760 for 8",
+    "과목당 C$2,300 (학기 8과목 이상)": "C$2,300 a course, taking 8 or more a term",
+
+    "사립 컬리지 · BC 편입 제도 소속": "Private college, inside the BC Transfer system",
+    "준학사를 마치고 UBC·SFU·UVic 3학년으로 편입": "Finish the associate degree and enter year 3 at UBC, SFU or UVic",
+    "준학사 2년 → 대학 3학년": "Associate degree, two years, then year 3",
+    "학점당 C$660 (연 24~30학점)": "C$660 a credit, at 24-30 credits a year",
+    "사립 컬리지 과정만으로는 PGWP가 나오지 않고, 편입한 대학에서 학사를 마쳐야 대상이 됩니다.":
+        "The private college programme alone does not lead to a work permit; you qualify by finishing the degree at the university you transfer into.",
+    "사이먼프레이저대(SFU) 캠퍼스 안": "On the Simon Fraser University campus",
+    "UTP 1학년을 마치면 SFU 2학년으로 진학": "Complete the UTP first year and move into year 2 at SFU",
+    "UTP 1학년 → SFU 2학년": "UTP year 1, then SFU year 2",
+    "UTP 2단계 C$39,162 (30학점)": "UTP Stage II, C$39,162 for 30 credits",
+    "고교 졸업(12학년 이수)이 지원 조건이고, 직접 입학은 IELTS 6.0부터 시작합니다.":
+        "You must have completed year 12 to apply, and direct entry starts at IELTS 6.0.",
+    "토론토메트로폴리탄대(TMU) 연계": "Partnered with Toronto Metropolitan University",
+    "UTP 1학년을 마치면 TMU 2학년으로 진학": "Complete the UTP first year and move into year 2 at TMU",
+    "UTP 1학년 → TMU 2학년": "UTP year 1, then TMU year 2",
+    "UTP 2단계 C$36,468": "UTP Stage II, C$36,468",
+    "고교 졸업(12학년 이수)이 지원 조건이고, 직접 입학은 IELTS 5.5부터 시작합니다. 학비는 2026/27학년도 기준입니다.":
+        "You must have completed year 12 to apply, and direct entry starts at IELTS 5.5. The fee shown is for 2026/27.",
+
+    "국제 사립학교": "International private school",
+    "사립 컬리지": "Private college",
+    "패스웨이 컬리지": "Pathway college",
+
+    /* --- 진학 가능 전공 --- */
+    "준학사 인문(Arts) · 이학(Science) — 편입 후 대학에서 전공 확정":
+        "Associate of Arts and Associate of Science — you settle the major at the university you transfer into",
+    "인문·사회 · 경영 · 커뮤니케이션 · 컴퓨터사이언스 · 엔지니어링 · 환경 · 보건 · 자연과학":
+        "Arts and social sciences · Business · Communication · Computing science · Engineering science · Environment · Health sciences · Sciences",
+    "인문 · 커머스 · 크리에이티브 인더스트리 · 공학 · 경제·금융 · 자연과학":
+        "Arts · Commerce · Creative industries · Engineering · Economics and finance · Science",
+
+    /* --- OSSD 학점 전환표 (BICC 안내서) --- */
+    "중3(9학년) 수료": "Finished grade 9",
+    "고1(10학년) 수료": "Finished grade 10",
+    "고2(11학년) 수료": "Finished grade 11",
+    "고3 이수·졸업": "Finished school",
+    "성인 학생(Mature Student)": "Mature student",
+    "10학년": "grade 10",
+    "11학년": "grade 11",
+    "12학년": "grade 12",
 
     /* --- 전공 미정 시 자동 배정 안내 --- */
     "전공을 아직 정하지 않으셨다면, 대졸·경력자에게는 1~2년 준석사 과정으로 진입할 수 있는 보건·IT 분야를 우선 추천합니다.":

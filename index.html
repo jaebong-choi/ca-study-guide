@@ -714,16 +714,25 @@
 
                 <!-- 고교 졸업 전: 국제 사립학교 경로 (편입 트랙 + 고3·고졸에서만 표시) -->
                 <div id="hs-private-card" class="hidden apple-card-flat max-w-4xl mx-auto mt-6 border border-gray-200" style="border-radius:12px;">
-                    <span class="region-badge mb-4"><i class="fa-solid fa-school"></i> <span data-i18n="hsExtraBadge">중·고교 재학 ~ 고교 졸업 전 추가 옵션</span></span>
+                    <span class="region-badge mb-4"><i class="fa-solid fa-school"></i> <span data-i18n="hsExtraBadge">중·고 재학생과 고교 졸업자 모두 가능</span></span>
                     <h4 class="sf-display-card-bold text-[#1d1d1f] mb-3" data-i18n="hsTitle">국제 사립학교 → 대학 직행 경로</h4>
-                    <p class="sf-text-caption text-gray-600 mb-5" data-i18n="hsIntro">중·고등학교 재학 중이거나 고교 졸업 전(고3 포함)이라면 컬리지 편입 외에, 토론토의 국제 사립학교에서 온타리오 고교 졸업장(OSSD)을 취득한 뒤 캐나다 대학에 바로 지원하는 경로도 선택할 수 있습니다.</p>
+                    <p class="sf-text-caption text-gray-600 mb-5" data-i18n="hsIntro">토론토의 국제 사립학교에서 온타리오 고교 졸업장(OSSD)을 취득한 뒤 캐나다 대학에 바로 지원하는 경로입니다. 중·고등학교 재학 중은 물론 이미 고교를 마친 뒤에도 고를 수 있습니다.</p>
                     <ol class="sf-text-caption text-gray-600 space-y-2 mb-5">
-                        <li class="flex items-start"><span class="shrink-0 w-5 h-5 rounded-full bg-[#D64535] text-white text-[11px] font-bold flex items-center justify-center mr-2 mt-0.5">1</span><span data-i18n="hsStep1">국제 사립학교 편입 (중·고 재학생은 학년에 맞춰, 고3·고졸은 12학년으로 — 입학 시기 유연)</span></li>
+                        <li class="flex items-start"><span class="shrink-0 w-5 h-5 rounded-full bg-[#D64535] text-white text-[11px] font-bold flex items-center justify-center mr-2 mt-0.5">1</span><span data-i18n="hsStep1">국제 사립학교 입학 — 재학생은 학년에 맞춰, 고교 졸업자는 이전 학력을 학점으로 인정받고 남은 과목만 이수</span></li>
                         <li class="flex items-start"><span class="shrink-0 w-5 h-5 rounded-full bg-[#D64535] text-white text-[11px] font-bold flex items-center justify-center mr-2 mt-0.5">2</span><span data-i18n="hsStep2">온타리오 고교 졸업장(OSSD) 취득 — 12학년 내신(Top 6 과목)으로 대학 지원</span></li>
                         <li class="flex items-start"><span class="shrink-0 w-5 h-5 rounded-full bg-[#D64535] text-white text-[11px] font-bold flex items-center justify-center mr-2 mt-0.5">3</span><span data-i18n="hsStep3">토론토대·UBC 등 대학 1학년 직행 → 학위 취득 시 PGWP 전공 제한 없음</span></li>
                     </ol>
                     <p class="sf-text-caption text-gray-600 mb-3"><i class="fa-solid fa-circle-check text-green-600 mr-1"></i> <span data-i18n="hsPros">수능·한국 내신 부담 없이 현지 내신으로 명문대에 도전할 수 있고, 컬리지 편입 대비 대학 진입 시점이 빠릅니다.</span></p>
-                    <p class="sf-text-caption text-gray-500 mb-6"><i class="fa-solid fa-circle-exclamation text-orange-500 mr-1"></i> <span data-i18n="hsCaution">입학 시기·이수 과목에 따라 기간이 달라지며, 대학별 영어 요건(IELTS 등)은 별도로 충족해야 합니다. 학교별 학비·기숙사 정보는 각 학교 공식 페이지에서 확인하세요.</span></p>
+                    <p class="sf-text-caption text-gray-600 mb-3"><i class="fa-solid fa-graduation-cap text-apple-blue mr-1"></i> <span data-i18n="hsMature">고교를 이미 마쳤다면 온타리오 규정상 만 18세 이상은 성인 학생으로 분류됩니다. 이전 학력으로 9·10학년 최대 16학점, 11·12학년 최대 10학점까지 인정받고 11·12학년 4학점만 실제로 이수하면 졸업 요건 30학점을 채울 수 있습니다.</span></p>
+
+                    <!-- 학점 전환표 — BICC 안내서(2026-04)의 표를 그대로 옮긴다. 값은 JS의 OSSD_CREDITS에 있다 -->
+                    <div class="bg-[#fafafc] rounded-[8px] p-4 mb-5">
+                        <p class="sf-text-caption text-gray-600 mb-2" data-i18n="hsOssdReq">OSSD 졸업 요건은 30학점(필수 18 + 선택 12)과 봉사활동 40시간, 10학년 문해력 시험입니다.</p>
+                        <p class="sf-text-caption text-gray-500 mb-3" data-i18n="hsCreditTitle">※ 어느 학년을 마치고 들어가느냐에 따라 인정 학점과 남은 과목 수가 정해집니다 (BICC 안내서 기준).</p>
+                        <div id="hs-credit-rows" class="space-y-2"></div>
+                    </div>
+
+                    <p class="sf-text-caption text-gray-500 mb-6"><i class="fa-solid fa-circle-exclamation text-orange-500 mr-1"></i> <span data-i18n="hsCaution">학점 인정 범위는 학교장이 서류를 보고 정하고, 사립학교는 이 인정 절차를 의무가 아니라 선택으로 운영합니다. 실제로 몇 과목을 들어야 하는지와 학비·기숙사는 지원 전 각 학교 공식 페이지에서 확인하세요.</span></p>
                     <div class="text-center sm:text-left">
                         <a href="https://www.ontario.ca/page/private-schools" target="_blank" rel="noopener" class="apple-link-pill light-bg">
                             <span data-i18n="ontarioPrivateLink2">온타리오 사립학교 공식 안내 (Ontario.ca)</span> <i class="fa-solid fa-chevron-right text-xs ml-2"></i>
@@ -783,7 +792,7 @@
                                 </tr>
                             </thead>
                             <tbody class="text-[14px]">
-                                <tr class="border-b border-gray-100"><td class="py-3 px-5 font-semibold text-[#1d1d1f]" data-i18n="costHs">국제 사립고 (OSSD)</td><td class="py-3 px-2 font-bold text-[#1d1d1f] whitespace-nowrap">C$15,000 ~ C$25,000<span class="krw block font-medium text-[12px] text-gray-400 mt-0.5" data-min="15000" data-max="25000"></span></td><td class="py-3 px-5 text-gray-400 text-[13px] hidden sm:table-cell" data-i18n="costHsNote">기숙·홈스테이 별도</td></tr>
+                                <tr class="border-b border-gray-100"><td class="py-3 px-5 font-semibold text-[#1d1d1f]" data-i18n="costHs">국제 사립고 (OSSD)</td><td class="py-3 px-2 font-bold text-[#1d1d1f] whitespace-nowrap">C$18,400 ~ C$29,950<span class="krw block font-medium text-[12px] text-gray-400 mt-0.5" data-min="18400" data-max="29950"></span></td><td class="py-3 px-5 text-gray-400 text-[13px] hidden sm:table-cell" data-i18n="costHsNote">추천 3개교 공시 기준 · 기숙·홈스테이 별도</td></tr>
                                 <tr class="border-b border-gray-100"><td class="py-3 px-5 font-semibold text-[#1d1d1f]" data-i18n="costCollege">공립 컬리지</td><td class="py-3 px-2 font-bold text-[#1d1d1f] whitespace-nowrap">C$13,505 ~ C$30,100<span class="krw block font-medium text-[12px] text-gray-400 mt-0.5" data-min="13505" data-max="30100"></span></td><td class="py-3 px-5 text-gray-400 text-[13px] hidden sm:table-cell" data-i18n="costCollegeNote">코업은 대개 유급</td></tr>
                                 <tr class="border-b border-gray-100"><td class="py-3 px-5 font-semibold text-[#1d1d1f]" data-i18n="costUni">4년제 대학</td><td class="py-3 px-2 font-bold text-[#1d1d1f] whitespace-nowrap">C$20,503 ~ C$75,150<span class="krw block font-medium text-[12px] text-gray-400 mt-0.5" data-min="20503" data-max="75150"></span></td><td class="py-3 px-5 text-gray-400 text-[13px] hidden sm:table-cell" data-i18n="costUniNote">매니토바가 하단, 토론토대 상경이 상단</td></tr>
                                 <tr class="border-b border-gray-100"><td class="py-3 px-5 font-semibold text-[#1d1d1f]" data-i18n="costLiving">생활비</td><td class="py-3 px-2 font-bold text-[#1d1d1f] whitespace-nowrap">C$22,895<span class="krw block font-medium text-[12px] text-gray-400 mt-0.5" data-min="22895" data-max="22895"></span></td><td class="py-3 px-5 text-gray-400 text-[13px] hidden sm:table-cell" data-i18n="costLivingNote">스터디 퍼밋 증빙 기준액</td></tr>
@@ -837,7 +846,8 @@
 
         <!-- Panorama -->
         <div class="max-w-[980px] mx-auto mt-8">
-            <img src="images/canada-panorama.jpg" alt="캐나다 국기와 CANADA 레터링" data-i18n-alt="panoramaAlt" class="rounded-xl w-full h-36 md:h-48 object-cover" loading="lazy">
+            <!-- CANADA 레터링이 원본 아래쪽에 있어 가운데로 자르면 글자가 잘린다. 아래를 기준으로 자른다 -->
+            <img src="images/canada-panorama.jpg" alt="캐나다 국기와 CANADA 레터링" data-i18n-alt="panoramaAlt" class="rounded-xl w-full h-36 md:h-48 object-cover object-bottom" loading="lazy">
         </div>
 
         <!-- Call to Action Footer -->
@@ -1479,12 +1489,36 @@
                 steps: ["편입 특화 컬리지 입학 (BC 트랜스퍼 등)", "2년 이수 후 대학 편입 (UBC·SFU·토론토대 등)", "학사 취득 → PGWP 최대 3년 (전공 제한 없음)"],
                 pros: "대학 4년 대비 학비를 크게 아끼고, 학위 과정이라 PGWP 전공 제한을 받지 않습니다.",
                 caution: "편입은 컬리지 성적(GPA)이 좌우합니다. 대학·전공별 편입 요건 확인이 필요합니다."
+            },
+            {
+                key: "ossd",
+                title: "국제 사립고 → 대학 직행",
+                en: "Ontario Diploma (OSSD)",
+                icon: "fa-school",
+                target: "중·고 재학생은 물론 고3·고교 졸업자도 고를 수 있습니다. 캐나다 고교 내신을 만들어 대학 1학년으로 바로 들어가는 경로입니다.",
+                steps: ["온타리오 인가 사립고 입학 (공인 영어 성적 없이 ESL 병행 가능)", "이전 학력을 온타리오 학점으로 인정받고 남은 과목만 이수 → OSSD", "12학년 내신(Top 6)으로 토론토대·UBC 등 1학년 지원"],
+                pros: "고교를 이미 마쳤다면 온타리오 규정상 만 18세 이상은 성인 학생으로 분류되어, 이전 학력으로 최대 26학점까지 인정받고 11·12학년 4학점만 실제로 이수하면 졸업장 30학점을 채울 수 있습니다.",
+                caution: "학점 인정 범위는 학교장이 서류를 보고 판단하고, 사립학교는 이 인정 절차를 의무가 아니라 선택으로 운영합니다. 지원 전 학교에 몇 과목을 들어야 하는지부터 확인하세요."
+            },
+            {
+                key: "pathway",
+                title: "대학 부설 패스웨이",
+                en: "University Pathway (UTP)",
+                icon: "fa-route",
+                target: "고교 졸업 성적이나 영어가 직접 지원에 조금 모자란 분. 대학 캠퍼스 안에서 1학년 과정을 듣고 2학년으로 올라갑니다.",
+                steps: ["패스웨이 컬리지 입학 (IELTS 5.5 내외부터)", "학부 1학년 과정(UTP) 8~12개월 이수", "기준 성적 충족 시 본교 2학년 편입 → 학위 기간은 4년 그대로"],
+                pros: "직접 입학보다 낮은 성적·영어로 시작하는데 수업은 본교 캠퍼스에서 듣고, 1학년을 대체하는 방식이라 졸업이 늦어지지 않습니다.",
+                caution: "학교가 정해져 있어 대학을 자유롭게 고를 수 없고, 학비는 본교 1학년과 비슷한 수준입니다."
             }
         ];
 
-        function renderPathwayGuide(routeKey) {
+        /* routeKeys 는 문자열 하나 또는 배열이다. 여러 개를 주면 모두 그리고,
+           primaryKey 에 해당하는 카드에만 "내 추천 경로" 배지를 붙인다. */
+        function renderPathwayGuide(routeKeys, primaryKey) {
             const grid = document.getElementById('pathway-guide-grid');
-            const matched = pathwayGuides.filter(g => g.key === routeKey);
+            const wanted = Array.isArray(routeKeys) ? routeKeys : [routeKeys];
+            // 넘겨준 순서를 그대로 지킨다 — 추천 학교 묶음(경로 1·2·3)과 순서를 맞춰야 한다
+            const matched = wanted.map(k => pathwayGuides.find(g => g.key === k)).filter(Boolean);
             const list = matched.length ? matched : pathwayGuides;
             // 해당 경로만 노출 (1개면 중앙 정렬, 여러 개면 열 수에 맞춤)
             grid.className = list.length === 1
@@ -1494,7 +1528,7 @@
                 ? t('guideSubMatched')
                 : t('guideSubCompare');
             grid.innerHTML = list.map(g => {
-                const isMine = true;
+                const isMine = list.length === 1 || g.key === primaryKey;
                 return `
                 <div class="apple-card-flat flex flex-col h-full ${isMine ? 'ring-2 ring-[#D64535]' : 'border border-gray-200'}" style="border-radius:12px;">
                     ${isMine ? `<span class="region-badge mb-4 self-start"><i class="fa-solid fa-location-dot"></i> ${t('guideMine')}</span>` : '<span class="mb-4" style="height:24px;"></span>'}
@@ -1853,11 +1887,15 @@
             renderCommonBlocks(tr(major.name_ko), isPostgrad ? t('routePostgrad') : t('routeDiploma'));
         }
 
-        // ---------- 트랙 B: 대학 편입 / 대학 직행(중·고 재학) ----------
+        // ---------- 트랙 B: 대학 편입 / 대학 직행(중·고 재학) / 고교 졸업(경로 전체) ----------
         function generateTransferReport() {
             const p = userProfile;
             if (p.status === "secondary") {
                 generateOssdReport();
+                return;
+            }
+            if (p.status === "hs") {
+                generateHsReport();
                 return;
             }
             const isBC = p.bRegion !== "ontario";
@@ -1891,8 +1929,8 @@
             noteEl.classList.remove('hidden');
             document.getElementById('rec-warning').classList.add('hidden');
 
-            // 고3·고교 졸업이면 국제 사립학교 → 대학 직행 경로도 함께 안내
-            document.getElementById('hs-private-card').classList.toggle('hidden', p.status !== "hs");
+            // 고3·고교 졸업은 generateHsReport 가 따로 받는다. 여기는 대학 재학·졸업만 온다
+            document.getElementById('hs-private-card').classList.add('hidden');
             document.getElementById('colleges-section').classList.remove('hidden');
             document.getElementById('colleges-title').innerText = "Recommended Colleges";
             document.getElementById('pathway-guide-section').classList.remove('hidden');
@@ -1910,42 +1948,150 @@
             renderCommonBlocks(t('majorTransfer'), t('routeTransfer'));
         }
 
-        // ---------- 추천 국제 사립학교 (중·고 재학 결과 전용) ----------
+        // ---------- 추천 국제 사립학교 (OSSD 경로) ----------
+        // 학비는 각 학교가 공시한 국제학생 요율이고 허브 상세 페이지와 같은 값이다.
+        // 값을 고칠 때는 study-guide-hub/data/universities-ca.json 도 함께 고칠 것.
         const PRIVATE_SCHOOLS = [
-            { name: "BICC", city: "Toronto", note: "OSSD 12학년 · 대학 진학 집중 관리", point: "소수정예 관리형 수업과 대학 지원 컨설팅" },
-            { name: "TAIE International Institute", city: "Toronto", note: "OSSD 12학년 · ESL 병행", point: "유학생 대상 운영 노하우와 진학 실적" },
-            { name: "UMC High School", city: "Toronto", note: "OSSD 12학년 · ESL 병행", point: "유연한 입학 시기와 단계별 영어 지원" }
+            {
+                name: "BICC", kind: "국제 사립학교", city: "Toronto", region: "ON", hub: "ca-bicc",
+                note: "OSSD 9~12학년 · 대학 진학 집중 관리",
+                point: "2025년 한국 학생 95명이 1인당 평균 7.5개 오퍼 · 진학은 캐나다 30%, 영국 30%, 호주 20%",
+                program: "OSSD 취득 → 대학 직행",
+                fee: "연 C$20,000 (8과목)",
+                url: "https://bicc-edu.com"
+            },
+            {
+                name: "TAIE International Institute", kind: "국제 사립학교", city: "Toronto", region: "ON", hub: "ca-taie",
+                note: "OSSD 7~12학년 · 고교 졸업자용 UPC 운영",
+                point: "연 6학기제라 원하는 달에 시작할 수 있고 기숙사를 직접 운영",
+                program: "OSSD 또는 UPC → 대학 직행",
+                fee: "10학점 C$29,950 · 8학점 C$24,760",
+                url: "https://www.taie.ca"
+            },
+            {
+                name: "UMC High School", kind: "국제 사립학교", city: "Toronto", region: "ON", hub: "ca-umc",
+                note: "OSSD 9~12학년 · ESL 병행",
+                point: "8주 학기제로 필요한 과목만 빠르게 채울 수 있음",
+                program: "OSSD 취득 → 대학 직행",
+                fee: "과목당 C$2,300 (학기 8과목 이상)",
+                url: "https://umchighschool.com"
+            }
         ];
 
+        // ---------- 편입·패스웨이로 고교 졸업자를 받는 학교 ----------
+        // 편입 그룹의 공립 컬리지는 pickTransferColleges()가 지역에 맞춰 따로 고른다.
+        const ROUTE_SCHOOLS = {
+            transfer: {
+                bc: [{
+                    name: "Alexander College", kind: "사립 컬리지", city: "Vancouver", region: "BC", hub: "ca-alexander",
+                    note: "사립 컬리지 · BC 편입 제도 소속",
+                    point: "준학사를 마치고 UBC·SFU·UVic 3학년으로 편입",
+                    program: "준학사 2년 → 대학 3학년",
+                    majors: "준학사 인문(Arts) · 이학(Science) — 편입 후 대학에서 전공 확정",
+                    fee: "학점당 C$660 (연 24~30학점)",
+                    url: "https://alexandercollege.ca",
+                    caution: "사립 컬리지 과정만으로는 PGWP가 나오지 않고, 편입한 대학에서 학사를 마쳐야 대상이 됩니다."
+                }],
+                ontario: []
+            },
+            pathway: {
+                bc: [{
+                    name: "Fraser International College", kind: "패스웨이 컬리지", city: "Burnaby", region: "BC", hub: "ca-fic",
+                    note: "사이먼프레이저대(SFU) 캠퍼스 안",
+                    point: "UTP 1학년을 마치면 SFU 2학년으로 진학",
+                    program: "UTP 1학년 → SFU 2학년",
+                    majors: "인문·사회 · 경영 · 커뮤니케이션 · 컴퓨터사이언스 · 엔지니어링 · 환경 · 보건 · 자연과학",
+                    fee: "UTP 2단계 C$39,162 (30학점)",
+                    url: "https://www.fraseric.ca",
+                    caution: "고교 졸업(12학년 이수)이 지원 조건이고, 직접 입학은 IELTS 6.0부터 시작합니다."
+                }],
+                ontario: [{
+                    name: "Toronto Metropolitan University International College", kind: "패스웨이 컬리지", city: "Toronto", region: "ON", hub: "ca-tmuic",
+                    note: "토론토메트로폴리탄대(TMU) 연계",
+                    point: "UTP 1학년을 마치면 TMU 2학년으로 진학",
+                    program: "UTP 1학년 → TMU 2학년",
+                    majors: "인문 · 커머스 · 크리에이티브 인더스트리 · 공학 · 경제·금융 · 자연과학",
+                    fee: "UTP 2단계 C$36,468",
+                    url: "https://www.torontomuic.ca",
+                    caution: "고교 졸업(12학년 이수)이 지원 조건이고, 직접 입학은 IELTS 5.5부터 시작합니다. 학비는 2026/27학년도 기준입니다."
+                }]
+            }
+        };
+
+        /* 국제 사립고·편입·패스웨이 학교를 같은 모양의 카드로 그린다.
+           컬리지 카드(collegeCard)와 나란히 놓이므로 구조를 맞춰 둔다. */
         function privateSchoolCard(s) {
+            const hubUrl = s.hub ? `${HUB_BASE}/uni/${s.hub}.html` : null;
             return `
                 <div class="apple-card flex flex-col justify-between h-full">
                     <div>
                         <div class="flex items-start justify-between mb-2 gap-2">
                             <h4 class="sf-display-card-bold text-[#1d1d1f]">${s.name}</h4>
-                            <span class="text-[11px] font-bold text-gray-400 bg-gray-100 rounded-full px-2.5 py-1 whitespace-nowrap mt-1">ON</span>
+                            <span class="text-[11px] font-bold text-gray-400 bg-gray-100 rounded-full px-2.5 py-1 whitespace-nowrap mt-1">${s.region}</span>
                         </div>
-                        <p class="text-xs text-apple-blue font-semibold mb-4 mt-2 uppercase tracking-wider">${t('privateType')(s.city)}</p>
+                        <p class="text-xs text-apple-blue font-semibold mb-4 mt-2 uppercase tracking-wider">${tr(s.kind || "국제 사립학교")} · ${s.city}</p>
                         <p class="sf-text-caption text-gray-500 mb-6 font-semibold uppercase tracking-wide">${tr(s.note)}</p>
 
-                        <div class="bg-[#fafafc] rounded-[8px] p-4 mb-8 space-y-3">
+                        <div class="bg-[#fafafc] rounded-[8px] p-4 mb-6 space-y-3">
                             <div class="flex justify-between sf-text-caption border-b border-gray-100 pb-2">
                                 <span class="text-gray-500">${t('pointLabel')}</span>
                                 <strong class="text-[#1d1d1f] text-right w-2/3">${tr(s.point)}</strong>
                             </div>
                             <div class="flex justify-between sf-text-caption border-b border-gray-100 pb-2">
                                 <span class="text-gray-500">${t('programLabel')}</span>
-                                <strong class="text-[#1d1d1f] text-right w-1/2">${t('ossdRoute')}</strong>
+                                <strong class="text-[#1d1d1f] text-right w-1/2">${tr(s.program)}</strong>
                             </div>
+                            ${s.majors ? `<div class="flex justify-between sf-text-caption border-b border-gray-100 pb-2">
+                                <span class="text-gray-500 shrink-0">${t('routeMajorsLabel')}</span>
+                                <strong class="text-[#1d1d1f] text-right w-2/3">${tr(s.majors)}</strong>
+                            </div>` : ''}
                             <div class="flex justify-between sf-text-caption pt-1">
-                                <span class="text-gray-500">${t('feeTimingLabel')}</span>
-                                <strong class="text-[#1d1d1f] text-orange-600">${t('checkSchoolPage')}</strong>
+                                <span class="text-gray-500">${t('schoolFeeLabel')}</span>
+                                <strong class="text-[#1d1d1f] text-orange-600 text-right">${tr(s.fee)}${krwSpan(s.fee)}</strong>
                             </div>
                         </div>
+                        ${s.caution ? `<p class="sf-text-caption text-gray-500 mb-6"><i class="fa-solid fa-circle-exclamation text-orange-500 mr-1"></i> ${tr(s.caution)}</p>` : ''}
                     </div>
-                    <a href="${OFFICIAL_LINKS.ontarioPrivate}" target="_blank" rel="noopener" class="apple-link-pill light-bg w-full text-center mt-auto">
-                        ${t('ontarioPrivateLink')} <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-2"></i>
-                    </a>
+                    <div class="flex flex-col gap-2 mt-auto">
+                        <a href="${s.url}" target="_blank" rel="noopener" class="apple-link-pill light-bg w-full text-center">
+                            ${t('visitSite')} <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-2"></i>
+                        </a>
+                        ${hubUrl ? `<a href="${hubUrl}" target="_blank" rel="noopener" class="apple-link-pill light-bg is-primary w-full text-center">
+                            ${t('hubDetail')} <i class="fa-solid fa-table-list text-xs ml-2"></i>
+                        </a>` : ''}
+                    </div>
+                </div>
+            `;
+        }
+
+        /* OSSD 학점 전환표 — BICC 안내서(2026년 4월판)의 표. 30학점이 졸업 요건이라
+           인정 학점을 빼면 실제로 들어야 하는 과목 수가 나온다. */
+        const OSSD_CREDITS = [
+            { from: "중3(9학년) 수료", to: "10학년", credits: 8, hours: 10 },
+            { from: "고1(10학년) 수료", to: "11학년", credits: 16, hours: 20 },
+            { from: "고2(11학년) 수료", to: "12학년", credits: 22, hours: 30 },
+            { from: "고3 이수·졸업", to: "12학년", credits: 23, hours: 30 },
+            { from: "성인 학생(Mature Student)", to: "12학년", credits: 26, hours: 40 }
+        ];
+
+        function renderOssdCredits() {
+            const el = document.getElementById('hs-credit-rows');
+            if (!el) return;
+            el.innerHTML = OSSD_CREDITS.map(r => `
+                <div class="flex justify-between items-baseline gap-3 sf-text-caption border-b border-gray-100 pb-2 last:border-0 last:pb-0">
+                    <span class="text-gray-600">${tr(r.from)} <span class="text-gray-400">→ ${tr(r.to)}</span></span>
+                    <strong class="text-[#1d1d1f] text-right shrink-0">${t('ossdCreditCell')(r.credits, r.hours, 30 - r.credits)}</strong>
+                </div>
+            `).join('');
+        }
+
+        /* 추천 학교 그리드 안의 경로 구분 머리글 — 그리드 한 줄을 통째로 쓴다. */
+        function routeGroupHead(n, title, sub) {
+            return `
+                <div class="col-span-full text-center ${n > 1 ? 'mt-10' : ''}">
+                    <span class="region-badge mb-3"><i class="fa-solid fa-signs-post"></i> ${t('routeNo')(n)}</span>
+                    <h4 class="sf-display-card-bold text-[#1d1d1f] mb-1">${title}</h4>
+                    <p class="sf-text-caption text-gray-500 max-w-xl mx-auto">${sub}</p>
                 </div>
             `;
         }
@@ -1984,6 +2130,7 @@
 
             // 국제 사립학교 상세 카드가 곧 추천 경로
             document.getElementById('hs-private-card').classList.remove('hidden');
+            renderOssdCredits();
 
             // 추천 학교 섹션: 컬리지 대신 국제 사립학교 카드 표시
             document.getElementById('colleges-section').classList.remove('hidden');
@@ -1993,12 +2140,75 @@
             noteRegion.classList.remove('hidden');
             document.getElementById('university-grid').innerHTML = PRIVATE_SCHOOLS.map(privateSchoolCard).join(''); renderKrw();
 
-            // 컬리지 3경로 가이드는 대학 직행 경로와 무관하므로 숨김
-            document.getElementById('pathway-guide-section').classList.add('hidden');
+            // 고교를 마친 뒤에는 편입·패스웨이도 열리므로 세 경로를 함께 보여 준다
+            document.getElementById('pathway-guide-section').classList.remove('hidden');
+            renderPathwayGuide(["ossd", "transfer", "pathway"], "ossd");
 
             renderLangNotice(p, "ossd");
 
             renderCommonBlocks(t('majorPrivate'), t('routeUniDirect'));
+        }
+
+        // ---------- 트랙 B (고3·고교 졸업): 세 경로를 모두 안내 ----------
+        // 고교를 마쳤으면 OSSD·편입·패스웨이가 전부 열려 있다. 하나를 골라 주는 대신
+        // 셋을 나란히 놓고 학교까지 경로별로 묶어 보여 준다.
+        function generateHsReport() {
+            const p = userProfile;
+            const isBC = p.bRegion !== "ontario";
+            const regionKey = isBC ? "bc" : "ontario";
+
+            document.getElementById('result-pathway-title').innerText = t('hsAllTitle');
+            let desc = t('hsAllDesc');
+            if (p.english === "none" || p.english === "mid") {
+                desc += t('hsAllEngNote');
+            }
+            document.getElementById('result-pathway-desc').innerText = desc;
+
+            renderSummary([
+                ["Status", tr(labelOf("b_status", p.status))],
+                ["Target", tr(labelOf("b_region", p.bRegion))],
+                ["Field", tr(labelOf("b_field", p.bField))],
+                ["English", tr(labelOf("b_english", p.english))]
+            ]);
+
+            // Major card: 어느 경로로 가든 도착지는 학사 학위다
+            document.getElementById('rec-major-badge').innerHTML = t('degreeBadge');
+            const fieldLabel = tr(labelOf("b_field", p.bField));
+            document.getElementById('rec-major-title').innerText =
+                (p.bField === "undecided" ? t('fieldUndecided') : fieldLabel) + t('hsAllTrackSuffix');
+            document.getElementById('rec-major-desc').innerText = t('hsAllMajorDesc')(
+                p.bField === "undecided" ? t('transferDescPartUndecided') : t('transferDescPartField')(fieldLabel));
+            document.getElementById('rec-major-programs').innerHTML = t('transferPrograms')
+                .map(e => `<span class="track-chip"><i class="fa-solid fa-book-open"></i> ${e}</span>`).join('');
+            const noteEl = document.getElementById('rec-major-note');
+            noteEl.innerText = t('hsAllNote');
+            noteEl.classList.remove('hidden');
+            document.getElementById('rec-warning').classList.add('hidden');
+
+            document.getElementById('hs-private-card').classList.remove('hidden');
+            renderOssdCredits();
+            document.getElementById('pathway-guide-section').classList.remove('hidden');
+            renderPathwayGuide(["ossd", "transfer", "pathway"]);
+
+            document.getElementById('colleges-section').classList.remove('hidden');
+            document.getElementById('colleges-title').innerText = "Recommended Schools";
+            const noteRegion = document.getElementById('region-note');
+            noteRegion.innerText = t('hsAllRegionNote')(isBC ? t('regionBCName') : t('regionONName'));
+            noteRegion.classList.remove('hidden');
+
+            const cards = [];
+            cards.push(routeGroupHead(1, t('hsGroupOssd'), t('hsGroupOssdSub')));
+            cards.push(PRIVATE_SCHOOLS.map(privateSchoolCard).join(''));
+            cards.push(routeGroupHead(2, t('hsGroupTransfer'), t('hsGroupTransferSub')));
+            cards.push(pickTransferColleges(p).map(collegeCard).join(''));
+            cards.push(ROUTE_SCHOOLS.transfer[regionKey].map(privateSchoolCard).join(''));
+            cards.push(routeGroupHead(3, t('hsGroupPathway'), t('hsGroupPathwaySub')));
+            cards.push(ROUTE_SCHOOLS.pathway[regionKey].map(privateSchoolCard).join(''));
+            document.getElementById('university-grid').innerHTML = cards.join(''); renderKrw();
+
+            renderLangNotice(p, "transfer");
+
+            renderCommonBlocks(t('majorHsAll'), t('routeHsAll'));
         }
 
         // ---------- 공통 블록 (유학 정보 글 / Next Steps) ----------
